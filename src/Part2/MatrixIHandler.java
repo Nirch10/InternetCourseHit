@@ -79,6 +79,8 @@ public class MatrixIHandler implements IHandler {
         }
     }
 
+
+
     private Collection<Index> getAllNeighbors(int[][] matrix) {
         //TODO :: foreach matrix index - get all neighors from matrix.getReachable(matrix[i][j]), and add to hashset..
         return null;
