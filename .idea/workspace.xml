@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a2862187-6244-4f38-b770-5b0790191c97" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Part2/GraphNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Part2/MatrixFunc2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Part2/Ex2/MatrixFunc2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Part2/Ex4/Index.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Part2/Ex4/SubMarine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Part2/Ex4/eDirection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Part1/TaskWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Part1/TaskWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Part2/MatrixIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Part2/MatrixIHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Part2/Index.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Part2/Index.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Part2/MatrixFunc2.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +52,7 @@
       <module name="FinalInternetProject" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Part2.*" />
+          <option name="PATTERN" value="Part2.Ex2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -72,11 +74,11 @@
       </method>
     </configuration>
     <configuration name="MatrixFunc2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Part2.MatrixFunc2" />
+      <option name="MAIN_CLASS_NAME" value="Part2.Ex2.MatrixFunc2" />
       <module name="FinalInternetProject" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Part2.*" />
+          <option name="PATTERN" value="Part2.Ex2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -89,7 +91,7 @@
       <module name="FinalInternetProject" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Part2.*" />
+          <option name="PATTERN" value="Part2.Ex2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -135,7 +137,7 @@
       <updated>1594637889236</updated>
       <workItem from="1597071724174" duration="463000" />
       <workItem from="1597144284628" duration="6699000" />
-      <workItem from="1598108289889" duration="6584000" />
+      <workItem from="1598108289889" duration="28524000" />
     </task>
     <servers />
   </component>
@@ -152,38 +154,46 @@
       <screen x="0" y="0" width="1280" height="745" />
     </state>
     <state x="453" y="112" key="#com.intellij.ide.util.MemberChooser/0.0.1280.745@0.0.1280.745" timestamp="1598112025349" />
-    <state width="1238" height="318" key="GridCell.Tab.0.bottom" timestamp="1598117283969">
+    <state width="1238" height="298" key="GridCell.Tab.0.bottom" timestamp="1598390326078">
       <screen x="0" y="0" width="1280" height="745" />
     </state>
-    <state width="1238" height="318" key="GridCell.Tab.0.bottom/0.0.1280.745@0.0.1280.745" timestamp="1598117283969" />
-    <state width="1238" height="318" key="GridCell.Tab.0.center" timestamp="1598117283967">
+    <state width="1238" height="298" key="GridCell.Tab.0.bottom/0.0.1280.745@0.0.1280.745" timestamp="1598390326078" />
+    <state width="1238" height="298" key="GridCell.Tab.0.bottom/0.23.1280.722@0.23.1280.722" timestamp="1598388726169" />
+    <state width="1238" height="298" key="GridCell.Tab.0.center" timestamp="1598390326076">
       <screen x="0" y="0" width="1280" height="745" />
     </state>
-    <state width="1238" height="318" key="GridCell.Tab.0.center/0.0.1280.745@0.0.1280.745" timestamp="1598117283967" />
-    <state width="1238" height="318" key="GridCell.Tab.0.left" timestamp="1598117283966">
+    <state width="1238" height="298" key="GridCell.Tab.0.center/0.0.1280.745@0.0.1280.745" timestamp="1598390326076" />
+    <state width="1238" height="298" key="GridCell.Tab.0.center/0.23.1280.722@0.23.1280.722" timestamp="1598388726166" />
+    <state width="1238" height="298" key="GridCell.Tab.0.left" timestamp="1598390326075">
       <screen x="0" y="0" width="1280" height="745" />
     </state>
-    <state width="1238" height="318" key="GridCell.Tab.0.left/0.0.1280.745@0.0.1280.745" timestamp="1598117283966" />
-    <state width="1238" height="318" key="GridCell.Tab.0.right" timestamp="1598117283968">
+    <state width="1238" height="298" key="GridCell.Tab.0.left/0.0.1280.745@0.0.1280.745" timestamp="1598390326075" />
+    <state width="1238" height="298" key="GridCell.Tab.0.left/0.23.1280.722@0.23.1280.722" timestamp="1598388726164" />
+    <state width="1238" height="298" key="GridCell.Tab.0.right" timestamp="1598390326077">
       <screen x="0" y="0" width="1280" height="745" />
     </state>
-    <state width="1238" height="318" key="GridCell.Tab.0.right/0.0.1280.745@0.0.1280.745" timestamp="1598117283968" />
-    <state width="1238" height="249" key="GridCell.Tab.1.bottom" timestamp="1598117221355">
+    <state width="1238" height="298" key="GridCell.Tab.0.right/0.0.1280.745@0.0.1280.745" timestamp="1598390326077" />
+    <state width="1238" height="298" key="GridCell.Tab.0.right/0.23.1280.722@0.23.1280.722" timestamp="1598388726168" />
+    <state width="1238" height="298" key="GridCell.Tab.1.bottom" timestamp="1598390325759">
       <screen x="0" y="0" width="1280" height="745" />
     </state>
-    <state width="1238" height="249" key="GridCell.Tab.1.bottom/0.0.1280.745@0.0.1280.745" timestamp="1598117221355" />
-    <state width="1238" height="249" key="GridCell.Tab.1.center" timestamp="1598117221334">
+    <state width="1238" height="298" key="GridCell.Tab.1.bottom/0.0.1280.745@0.0.1280.745" timestamp="1598390325758" />
+    <state width="1238" height="298" key="GridCell.Tab.1.bottom/0.23.1280.722@0.23.1280.722" timestamp="1598388726175" />
+    <state width="1238" height="298" key="GridCell.Tab.1.center" timestamp="1598390325756">
       <screen x="0" y="0" width="1280" height="745" />
     </state>
-    <state width="1238" height="249" key="GridCell.Tab.1.center/0.0.1280.745@0.0.1280.745" timestamp="1598117221334" />
-    <state width="1238" height="249" key="GridCell.Tab.1.left" timestamp="1598117221333">
+    <state width="1238" height="298" key="GridCell.Tab.1.center/0.0.1280.745@0.0.1280.745" timestamp="1598390325756" />
+    <state width="1238" height="298" key="GridCell.Tab.1.center/0.23.1280.722@0.23.1280.722" timestamp="1598388726172" />
+    <state width="1238" height="298" key="GridCell.Tab.1.left" timestamp="1598390325755">
       <screen x="0" y="0" width="1280" height="745" />
     </state>
-    <state width="1238" height="249" key="GridCell.Tab.1.left/0.0.1280.745@0.0.1280.745" timestamp="1598117221333" />
-    <state width="1238" height="249" key="GridCell.Tab.1.right" timestamp="1598117221352">
+    <state width="1238" height="298" key="GridCell.Tab.1.left/0.0.1280.745@0.0.1280.745" timestamp="1598390325755" />
+    <state width="1238" height="298" key="GridCell.Tab.1.left/0.23.1280.722@0.23.1280.722" timestamp="1598388726171" />
+    <state width="1238" height="298" key="GridCell.Tab.1.right" timestamp="1598390325758">
       <screen x="0" y="0" width="1280" height="745" />
     </state>
-    <state width="1238" height="249" key="GridCell.Tab.1.right/0.0.1280.745@0.0.1280.745" timestamp="1598117221352" />
+    <state width="1238" height="298" key="GridCell.Tab.1.right/0.0.1280.745@0.0.1280.745" timestamp="1598390325758" />
+    <state width="1238" height="298" key="GridCell.Tab.1.right/0.23.1280.722@0.23.1280.722" timestamp="1598388726173" />
     <state x="296" y="234" key="com.intellij.ide.util.TipDialog" timestamp="1597144294936">
       <screen x="0" y="23" width="1280" height="722" />
     </state>
@@ -194,15 +204,6 @@
     <state x="34" y="101" key="new project wizard/0.0.1280.745@0.0.1280.745" timestamp="1597653289408" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Part2/MatrixFunc2.java</url>
-          <line>97</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="path.toArray()[pathSize - 1]" language="JAVA" />
