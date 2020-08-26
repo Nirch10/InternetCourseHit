@@ -7,11 +7,12 @@ import static Part2.Utils.MatrixUtils.getReachables;
 
 public class CliqueFinder {
 
-    private static final int marked_cell = 2;
+    private static final int visited = 2;
 
     public static void printAllCliques(Integer[][] matrix){
         HashSet<Collection<Index>> cliques = new HashSet<>();
         Integer[][] dupMatrix = matrix.clone();
+
         for (int i = 0; i < dupMatrix.length; i ++) {
             for (int j = 0; j < dupMatrix[i].length; j++) {
                cliques.add(findCliqueByIndex(dupMatrix,new Index(i,j), new LinkedList<>()));
@@ -28,7 +29,7 @@ public class CliqueFinder {
 
         if(matrix[index.getRow()][index.getColumn()] != 1)return clique;
         clique.add(index);
-        matrix[index.getRow()][index.getColumn()] = marked_cell;
+        matrix[index.getRow()][index.getColumn()] = visited;
         Collection<Index> indexNeighbors = getReachables(matrix, index);
         if (indexNeighbors.size() == 0) return clique;
 

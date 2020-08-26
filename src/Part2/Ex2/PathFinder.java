@@ -1,25 +1,29 @@
-package Part2.Ex3;
+package Part2.Ex2;
 
 import Part2.Index;
+
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import static Part2.Utils.MatrixUtils.getReachables;
 
 
-public class MatrixFunc2{
+public class PathFinder {
 
      private static final int marked_cell = 2;
      private static final int unmarked_cell = 1;
 
     public static void printAllPathsAscending(Index src, Index dst, Integer[][] matrix){
         LinkedHashSet<Collection<Index>> paths = new LinkedHashSet<>();
-        paths = dfs(src, dst, matrix,new Stack<>(), paths,new LinkedList<>());
+        paths = dfs(src, dst, matrix, paths,new LinkedList<>());
         paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
     }
 
     private static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, Integer[][] mat,
-                                                        Stack<Index> neighbors, LinkedHashSet<Collection<Index>> paths,
-                                                        Collection<Index> parentPath) {
+                                                        LinkedHashSet<Collection<Index>> paths, Collection<Index> parentPath) {
         parentPath.add(src);
         Collection<Index> newParentPath = new LinkedList<>(parentPath);
         Integer[][] clonedMat = mat.clone();
@@ -32,11 +36,32 @@ public class MatrixFunc2{
 
         Collection<Index> srcNeighbors = getReachables(mat, src);
         if (srcNeighbors.size() == 0) return paths;
-
+        Stack<Index> neighbors = new Stack<>();
         srcNeighbors.forEach(neighbor -> neighbors.push(neighbor));
+        Executor executor =  Executors.newFixedThreadPool(10);
         while (neighbors.empty() == false){
             Index newSrc = neighbors.pop();
-            paths = dfs(newSrc, dst,clonedMat,new Stack<>(), paths, newParentPath);
+
+            Integer[][] newThreadClonedMat = clonedMat;
+            LinkedHashSet<Collection<Index>> newThreadPaths = paths;
+            Collection<Index> newThreadParentPath = newParentPath;
+            CompletableFuture<LinkedHashSet<Collection<Index>>> completableFuture = CompletableFuture.runAsync(()->{})
+                    .thenApplyAsync(result -> {
+                try {
+                    System.out.println(Thread.currentThread().getName() + " : "+ Thread.currentThread().getId());
+                    return dfs(newSrc, dst, newThreadClonedMat, newThreadPaths, newThreadParentPath);
+                }
+                catch
+                (Exception e){ }
+                return newThreadPaths;
+            },executor);
+            try {
+                paths = completableFuture.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
             newParentPath = new LinkedList<>(parentPath);
             clonedMat = mat.clone();
             mat[newSrc.getRow()][newSrc.getColumn()] = unmarked_cell;
