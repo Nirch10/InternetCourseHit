@@ -7,17 +7,28 @@ import java.util.Random;
 
 public class SubMarine {
 
-    public Index[][] mat;
+
+    public static void main(String[] args) {
+        SubMarine sb = new SubMarine();
+    }
+    public int[][] mat;
+    final int markedCell = 2;
+
     private final int row = 10;
     private final int col = 10;
     private Random rnd = new Random();
 
+
+
     public SubMarine() {
-        mat = new Index[row][col];
+        mat = new int[row][col];
         initMat();
-        printMat();
+        int[][] savedMat = new int[mat.length][mat[0].length];
+        copyMat(mat,savedMat,row, col);
+        printMat(mat);
         System.out.println();
         List<List<Index>> result = searchForSubMarines();
+
         int counter =0;
         for (List<Index> li : result) {
             for (Index item : li) {
@@ -28,30 +39,36 @@ public class SubMarine {
             counter++;
         }
 
-        System.out.println("there are " +counter + " submarines ");
+        System.out.println("there are " + counter + " submarines ");
+        printMat(savedMat);
+
     }
     private void initMat()
     {
         for (int i=0;i<row;i++)
         {
             for (int j=0;j<col;j++){
-                mat[i][j] = new Index(0,0);
-                mat[i][j].col = j;
-                mat[i][j].row = i;
-                mat[i][j].visited = false;
-                mat[i][j].val = Math.abs(i + rnd.nextInt() + j * rnd.nextInt()) %2;
+                mat[i][j] = Math.abs(i + rnd.nextInt() + j * rnd.nextInt()) %2;
             }
         }
     }
-
-    private void printMat()
+    private void copyMat(int[][] source, int[][] dest , int row, int col){
+        for (int i=0;i<row;i++)
+        {
+            for (int j=0;j<col;j++)
+            {
+                dest[i][j] = source[i][j];
+            }
+        }
+    }
+    private void printMat(int[][] matToPrint)
     {
 
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
             {
-                System.out.print((mat[i][j].val + " "));
+                System.out.print((matToPrint[i][j] + " "));
             }
             System.out.println();
         }
@@ -66,7 +83,7 @@ public class SubMarine {
         {
             for (int j = 0; j < col; j++)
             {
-                if (!mat[i][j].visited && mat[i][j].val == 1)
+                if (mat[i][j] == 1)
                 {
                     if (currentSearchDirection == eDirection.NONE)
                     {
@@ -77,7 +94,7 @@ public class SubMarine {
                     searchForCurrentSub(subMarines,  currentSub, currentSearchDirection,  tempI,  tempJ);
                     currentSearchDirection = eDirection.NONE;
                     currentSub = new ArrayList<>();
-                    mat[i][j].visited = true;
+                    mat[i][j] = markedCell;
                 }
             }
         }
@@ -87,8 +104,8 @@ public class SubMarine {
     {
         while (currentSearchDirection != eDirection.NONE)
         {
-            currentSub.add(mat[tempI][tempJ]);
-            mat[tempI][tempJ].visited = true;
+            currentSub.add(new Index(tempI,tempJ));
+            mat[tempI][tempJ] = markedCell;
             if (currentSearchDirection == eDirection.RIGHT) { tempJ++; }
             if (currentSearchDirection == eDirection.LEFT) { tempJ--; }
             if (currentSearchDirection == eDirection.UP) { tempI--; }
@@ -98,8 +115,8 @@ public class SubMarine {
             {
                 if (checkCordLimit(tempI, row) && checkCordLimit(tempJ, col))
                 {
-                    currentSub.add(mat[tempI][tempJ]);
-                    mat[tempI][tempJ].visited = true;
+                    currentSub.add(new Index(tempI,tempJ));
+                    mat[tempI][tempJ] = markedCell;
                 }
                 currentSearchDirection = eDirection.NONE;
             }
@@ -116,13 +133,13 @@ public class SubMarine {
         switch (i_DirectionToLook)
         {
             case UP:
-                return checkCordLimit(i_I - 1, row) && mat[i_I - 1][i_J].val == 1 && mat[i_I - 1][i_J].visited == false;
+                return checkCordLimit(i_I - 1, row) && mat[i_I - 1][i_J] == 1 && mat[i_I - 1][i_J]!= markedCell;
             case DOWN:
-                return checkCordLimit(i_I + 1, row) && mat[i_I + 1][i_J].val == 1 && mat[i_I + 1][i_J].visited == false;
+                return checkCordLimit(i_I + 1, row) && mat[i_I + 1][i_J] == 1 && mat[i_I + 1][i_J]!= markedCell;
             case RIGHT:
-                return checkCordLimit(i_J + 1, col) && mat[i_I][i_J + 1].val == 1 && mat[i_I][i_J + 1].visited == false;
+                return checkCordLimit(i_J + 1, col) && mat[i_I][i_J + 1] == 1 && mat[i_I][i_J + 1]!= markedCell;
             case LEFT:
-                return checkCordLimit(i_J - 1, col) && mat[i_I][i_J - 1].val == 1 && mat[i_I][i_J - 1].visited == false;
+                return checkCordLimit(i_J - 1, col) && mat[i_I][i_J - 1] == 1 && mat[i_I][i_J - 1]!= markedCell;
             default:
                 return false;
         }
@@ -130,19 +147,19 @@ public class SubMarine {
 
     private eDirection checkForNeighborsDirection(int i_I, int i_J)
     {
-        if ((checkCordLimit(i_J + 1, col) && mat[i_I][i_J + 1].val == 1))
+        if ((checkCordLimit(i_J + 1, col) && mat[i_I][i_J + 1] == 1))
         {
             return eDirection.RIGHT;
         }
-        if ((checkCordLimit(i_I+1,row) && mat[i_I + 1][i_J].val == 1))
+        if ((checkCordLimit(i_I+1,row) && mat[i_I + 1][i_J] == 1))
         {
             return eDirection.DOWN;
         }
-        if ((checkCordLimit(i_J - 1, col) && mat[i_I][i_J - 1].val == 1))
+        if ((checkCordLimit(i_J - 1, col) && mat[i_I][i_J - 1] == 1))
         {
             return eDirection.LEFT;
         }
-        if ((checkCordLimit(i_I - 1, row) && mat[i_I - 1][i_J].val == 1))
+        if ((checkCordLimit(i_I - 1, row) && mat[i_I - 1][i_J] == 1))
         {
             return eDirection.UP;
         }
@@ -154,9 +171,7 @@ public class SubMarine {
     }
 
 
-    public static void main(String[] args) {
-        SubMarine sb = new SubMarine();
-    }
+
 }
 
 
