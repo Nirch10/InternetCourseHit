@@ -2,6 +2,10 @@ package Part2.Ex1;
 
 import Part2.Index;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import static Part2.Utils.MatrixUtils.getReachables;
 
@@ -38,11 +42,28 @@ public class CliqueFinder {
 
         while (neighbors.empty() == false){
             Index newIndex = neighbors.pop();
-            clique = findCliqueByIndex(matrix, newIndex, clique);
+            Executor executor =  Executors.newFixedThreadPool(10);
+            Integer[][] newThreadClonedMat = matrix;
+            Collection<Index> newThreadPaths = clique ;
+            CompletableFuture<Collection<Index>> completableFuture = CompletableFuture.runAsync(()->{})
+                    .thenApplyAsync(result -> {
+                        try {
+                            return findCliqueByIndex(newThreadClonedMat,newIndex, newThreadPaths);
+                        }
+                        catch
+                        (Exception e){ }
+                        return newThreadPaths;
+                    },executor);
+            try {
+                clique = completableFuture.get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
         return clique;
     }
-
 
     public static void main(String[] args){
         Integer[][] mat = { {1,1,1,1,1},{0,0,0,0,0},{1,1,1,1,1}
