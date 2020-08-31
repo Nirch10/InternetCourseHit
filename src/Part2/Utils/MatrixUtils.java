@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class MatrixUtils {
 
-    private static Collection<Index> getAdjacentIndices(Integer[][] matrix, final Index index) {
+    private static Collection<Index> getAdjacentIndices(int[][] matrix, final Index index) {
         Collection<Index> list = new ArrayList<>();
         int extracted = -1;
         try {
@@ -46,11 +46,11 @@ public class MatrixUtils {
         return list;
     }
 
-    private static int getValue(Integer[][] matrix, Index index) {
+    private static int getValue(int[][] matrix, Index index) {
         return matrix[index.getRow()][index.getColumn()];
     }
 
-    public static Collection<Index> getReachables(Integer[][] matrix, Index index) {
+    public static Collection<Index> getReachables(int[][] matrix, Index index) {
         ArrayList<Index> filteredIndices = new ArrayList<>();
         try{
 

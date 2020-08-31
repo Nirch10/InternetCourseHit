@@ -14,8 +14,8 @@ public class SubMarine {
     public int[][] mat;
     final int markedCell = 2;
 
-    private final int row = 10;
-    private final int col = 10;
+    private final int row = 270;
+    private final int col = 170;
     private Random rnd = new Random();
 
 
@@ -74,7 +74,7 @@ public class SubMarine {
         }
     }
 
-    private List<List<Index>> searchForSubMarines()
+    public static List<List<Index>> searchForSubMarines()
     {
         List<List<Index>> subMarines = new ArrayList<>();
         List<Index> currentSub = new ArrayList<>();

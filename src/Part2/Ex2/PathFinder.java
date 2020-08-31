@@ -16,17 +16,17 @@ public class PathFinder {
      private static final int marked_cell = 2;
      private static final int unmarked_cell = 1;
 
-    public static void printAllPathsAscending(Index src, Index dst, Integer[][] matrix){
+    public static void printAllPathsAscending(Index src, Index dst, int[][] matrix){
         LinkedHashSet<Collection<Index>> paths = new LinkedHashSet<>();
         paths = dfs(src, dst, matrix, paths,new LinkedList<>());
         paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
     }
 
-    private static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, Integer[][] mat,
+    private static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, int[][] mat,
                                                         LinkedHashSet<Collection<Index>> paths, Collection<Index> parentPath) {
         parentPath.add(src);
         Collection<Index> newParentPath = new LinkedList<>(parentPath);
-        Integer[][] clonedMat = mat.clone();
+        int[][] clonedMat = mat.clone();
         clonedMat[src.getRow()][src.getColumn()] = marked_cell;
 
         if(src.equals(dst)){
@@ -42,7 +42,7 @@ public class PathFinder {
         while (neighbors.empty() == false){
             Index newSrc = neighbors.pop();
 
-            Integer[][] newThreadClonedMat = clonedMat;
+            int[][] newThreadClonedMat = clonedMat;
             LinkedHashSet<Collection<Index>> newThreadPaths = paths;
             Collection<Index> newThreadParentPath = newParentPath;
             CompletableFuture<LinkedHashSet<Collection<Index>>> completableFuture = CompletableFuture.runAsync(()->{})
@@ -72,7 +72,7 @@ public class PathFinder {
 
 
     public static void main(String[] args){
-        Integer[][] mat = { {1,1,0,1,0},
+        int[][] mat = { {1,1,0,1,0},
                             {0,1,1,0,1},
                             {1,0,1,1,1}};
         Index src = new Index(0, 0);
