@@ -61,41 +61,22 @@ public class MatrixIHandler implements IHandler {
                 }
                 case "Task4": {
                     int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
+                    if (primitiveMatrix != null) {
+                        List<List<Part2.Ex4.Index>> result = SubMarine.searchForSubMarines(primitiveMatrix, primitiveMatrix.length, primitiveMatrix[0].length);
+                        int counter = 0;
+                        for (List<Part2.Ex4.Index> li : result) {
+                            for (Part2.Ex4.Index item : li) {
+                                System.out.print(item.toString() + ",");
 
-                    List<List<Part2.Ex4.Index>> result = SubMarine. searchForSubMarines();
-
-                    int counter =0;
-                    for (List<Part2.Ex4.Index> li : result) {
-                        for (Part2.Ex4.Index item : li) {
-                            System.out.print(item.toString() + ",");
-
+                            }
+                            System.out.println();
+                            counter++;
                         }
-                        System.out.println();
-                        counter++;
+                        System.out.println("there are " + counter + " submarines ");
                     }
+                    break;
+                }
 
-                    System.out.println("there are " + counter + " submarines ");
-                    Collection<Index> adjacentIndices = new ArrayList<>();
-                    if (this.matrix != null){
-                        adjacentIndices.addAll(this.matrix.getAdjacentIndices(indexAdjacentIndices));
-                    }
-                    // sending getAdjacentIndices
-                    System.out.println("server::getAdjacentIndices:: " + adjacentIndices);
-                    objectOutputStream.writeObject(adjacentIndices);
-                    break;
-                }
-                case "Reachables": {
-                    // receiving index for getReachables
-                    Index indexReachables = (Index) objectInputStream.readObject();
-                    Collection<Index> reachables = new ArrayList<>();
-                    if (this.matrix != null){
-                        reachables.addAll(this.matrix.getReachables(indexReachables));
-                    }
-                    // sending getReachables
-                    System.out.println("server::getReachables:: " + reachables);
-                    objectOutputStream.writeObject(reachables);
-                    break;
-                }
             }
         }
     }

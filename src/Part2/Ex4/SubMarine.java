@@ -11,6 +11,7 @@ public class SubMarine {
     public static void main(String[] args) {
         SubMarine sb = new SubMarine();
     }
+
     public int[][] mat;
     final int markedCell = 2;
 
@@ -20,61 +21,9 @@ public class SubMarine {
 
 
 
-    public SubMarine() {
-        mat = new int[row][col];
-        initMat();
-        int[][] savedMat = new int[mat.length][mat[0].length];
-        copyMat(mat,savedMat,row, col);
-        printMat(mat);
-        System.out.println();
-        List<List<Index>> result = searchForSubMarines();
+    public SubMarine() {}
 
-        int counter =0;
-        for (List<Index> li : result) {
-            for (Index item : li) {
-                System.out.print(item.toString() + ",");
-
-            }
-            System.out.println();
-            counter++;
-        }
-
-        System.out.println("there are " + counter + " submarines ");
-        printMat(savedMat);
-
-    }
-    private void initMat()
-    {
-        for (int i=0;i<row;i++)
-        {
-            for (int j=0;j<col;j++){
-                mat[i][j] = Math.abs(i + rnd.nextInt() + j * rnd.nextInt()) %2;
-            }
-        }
-    }
-    private void copyMat(int[][] source, int[][] dest , int row, int col){
-        for (int i=0;i<row;i++)
-        {
-            for (int j=0;j<col;j++)
-            {
-                dest[i][j] = source[i][j];
-            }
-        }
-    }
-    private void printMat(int[][] matToPrint)
-    {
-
-        for (int i = 0; i < row; i++)
-        {
-            for (int j = 0; j < col; j++)
-            {
-                System.out.print((matToPrint[i][j] + " "));
-            }
-            System.out.println();
-        }
-    }
-
-    public static List<List<Index>> searchForSubMarines()
+    public static List<List<Index>> searchForSubMarines(int[][] seaMatrix, int row, int col)
     {
         List<List<Index>> subMarines = new ArrayList<>();
         List<Index> currentSub = new ArrayList<>();
@@ -83,40 +32,40 @@ public class SubMarine {
         {
             for (int j = 0; j < col; j++)
             {
-                if (mat[i][j] == 1)
+                if (seaMatrix[i][j] == 1)
                 {
                     if (currentSearchDirection == eDirection.NONE)
                     {
-                        currentSearchDirection = checkForNeighborsDirection(i, j);
+                        currentSearchDirection = checkForNeighborsDirection(seaMatrix,i, j , row,  col);
                     }
                     int tempI = i;
                     int tempJ = j;
-                    searchForCurrentSub(subMarines,  currentSub, currentSearchDirection,  tempI,  tempJ);
+                    searchForCurrentSub(seaMatrix,subMarines,  currentSub, currentSearchDirection,  tempI,  tempJ, row,  col);
                     currentSearchDirection = eDirection.NONE;
                     currentSub = new ArrayList<>();
-                    mat[i][j] = markedCell;
+                    seaMatrix[i][j] = 2;
                 }
             }
         }
         return subMarines;
     }
-    private void searchForCurrentSub(List<List<Index>> subMarines,  List<Index> currentSub,  eDirection currentSearchDirection,  int tempI,  int tempJ)
+    private static void  searchForCurrentSub(int[][] seaMatrix, List<List<Index>> subMarines,  List<Index> currentSub,  eDirection currentSearchDirection,  int tempI,  int tempJ, int row, int col)
     {
         while (currentSearchDirection != eDirection.NONE)
         {
             currentSub.add(new Index(tempI,tempJ));
-            mat[tempI][tempJ] = markedCell;
+            seaMatrix[tempI][tempJ] = 2;
             if (currentSearchDirection == eDirection.RIGHT) { tempJ++; }
             if (currentSearchDirection == eDirection.LEFT) { tempJ--; }
             if (currentSearchDirection == eDirection.UP) { tempI--; }
             if (currentSearchDirection == eDirection.DOWN) { tempI++; }
-            boolean continueDirection = checkForSpecificDirection(currentSearchDirection, tempI, tempJ);
+            boolean continueDirection = checkForSpecificDirection(seaMatrix,currentSearchDirection, tempI, tempJ,  row, col);
             if (!continueDirection)
             {
                 if (checkCordLimit(tempI, row) && checkCordLimit(tempJ, col))
                 {
                     currentSub.add(new Index(tempI,tempJ));
-                    mat[tempI][tempJ] = markedCell;
+                    seaMatrix[tempI][tempJ] = 2;
                 }
                 currentSearchDirection = eDirection.NONE;
             }
@@ -128,44 +77,44 @@ public class SubMarine {
         currentSub = new ArrayList<>();
     }
 
-    private boolean checkForSpecificDirection(eDirection i_DirectionToLook ,int i_I,int i_J)
+    private static boolean checkForSpecificDirection(int [][] seaMatrix, eDirection i_DirectionToLook ,int i_I,int i_J ,int row, int col)
     {
         switch (i_DirectionToLook)
         {
             case UP:
-                return checkCordLimit(i_I - 1, row) && mat[i_I - 1][i_J] == 1 && mat[i_I - 1][i_J]!= markedCell;
+                return checkCordLimit(i_I - 1, row) && seaMatrix[i_I - 1][i_J] == 1 && seaMatrix[i_I - 1][i_J]!= 2;
             case DOWN:
-                return checkCordLimit(i_I + 1, row) && mat[i_I + 1][i_J] == 1 && mat[i_I + 1][i_J]!= markedCell;
+                return checkCordLimit(i_I + 1, row) && seaMatrix[i_I + 1][i_J] == 1 && seaMatrix[i_I + 1][i_J]!= 2;
             case RIGHT:
-                return checkCordLimit(i_J + 1, col) && mat[i_I][i_J + 1] == 1 && mat[i_I][i_J + 1]!= markedCell;
+                return checkCordLimit(i_J + 1, col) && seaMatrix[i_I][i_J + 1] == 1 && seaMatrix[i_I][i_J + 1]!= 2;
             case LEFT:
-                return checkCordLimit(i_J - 1, col) && mat[i_I][i_J - 1] == 1 && mat[i_I][i_J - 1]!= markedCell;
+                return checkCordLimit(i_J - 1, col) && seaMatrix[i_I][i_J - 1] == 1 && seaMatrix[i_I][i_J - 1]!= 2;
             default:
                 return false;
         }
     }
 
-    private eDirection checkForNeighborsDirection(int i_I, int i_J)
+    private static eDirection checkForNeighborsDirection(int [][]seaMatrix, int i_I, int i_J, int row, int col)
     {
-        if ((checkCordLimit(i_J + 1, col) && mat[i_I][i_J + 1] == 1))
+        if ((checkCordLimit(i_J + 1, col) && seaMatrix[i_I][i_J + 1] == 1))
         {
             return eDirection.RIGHT;
         }
-        if ((checkCordLimit(i_I+1,row) && mat[i_I + 1][i_J] == 1))
+        if ((checkCordLimit(i_I+1,row) && seaMatrix[i_I + 1][i_J] == 1))
         {
             return eDirection.DOWN;
         }
-        if ((checkCordLimit(i_J - 1, col) && mat[i_I][i_J - 1] == 1))
+        if ((checkCordLimit(i_J - 1, col) && seaMatrix[i_I][i_J - 1] == 1))
         {
             return eDirection.LEFT;
         }
-        if ((checkCordLimit(i_I - 1, row) && mat[i_I - 1][i_J] == 1))
+        if ((checkCordLimit(i_I - 1, row) && seaMatrix[i_I - 1][i_J] == 1))
         {
             return eDirection.UP;
         }
         return eDirection.NONE;
     }
-    private boolean checkCordLimit(int i_Cord, int i_Limit)
+    private static  boolean checkCordLimit(int i_Cord, int i_Limit)
     {
         return i_Cord >= 0 && i_Cord < i_Limit;
     }
