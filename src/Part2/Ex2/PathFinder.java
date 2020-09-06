@@ -19,7 +19,23 @@ public class PathFinder {
     public static void printAllPathsAscending(Index src, Index dst, int[][] matrix){
         LinkedHashSet<Collection<Index>> paths = new LinkedHashSet<>();
         paths = dfs(src, dst, matrix, paths,new LinkedList<>());
-        paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
+
+       // Collections.sort(new ArrayList<Collection<Index>>(paths));
+        int min = Integer.MAX_VALUE;
+        Iterator  <Collection<Index>> i = paths.iterator();
+        while (i.hasNext()) {
+            int temp = i.next().size();
+            if (i.next().size() < min)
+                min = i.next().size();
+        }
+        Iterator  <Collection<Index>> j = paths.iterator();
+        while (j.hasNext()) {
+            if (j.next().size() == min)
+                System.out.println(j);
+        }
+
+        System.out.println("finish");
+       // paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
     }
 
     private static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, int[][] mat,
@@ -38,7 +54,7 @@ public class PathFinder {
         if (srcNeighbors.size() == 0) return paths;
         Stack<Index> neighbors = new Stack<>();
         srcNeighbors.forEach(neighbor -> neighbors.push(neighbor));
-        Executor executor =  Executors.newFixedThreadPool(10);
+        Executor executor =  Executors.newFixedThreadPool(20);
         while (neighbors.empty() == false){
             Index newSrc = neighbors.pop();
 
@@ -48,7 +64,7 @@ public class PathFinder {
             CompletableFuture<LinkedHashSet<Collection<Index>>> completableFuture = CompletableFuture.runAsync(()->{})
                     .thenApplyAsync(result -> {
                 try {
-                    System.out.println(Thread.currentThread().getName() + " : "+ Thread.currentThread().getId());
+                 // System.out.println(Thread.currentThread().getName() + " : "+ Thread.currentThread().getId());
                     return dfs(newSrc, dst, newThreadClonedMat, newThreadPaths, newThreadParentPath);
                 }
                 catch
@@ -82,3 +98,31 @@ public class PathFinder {
     }
 
 }
+
+
+/*
+*
+*
+        Set<String> data = new LinkedHashSet<>();
+        data.add("aaa");
+        data.add("bbb");
+        data.add("ccdcd");
+        data.add("dd");
+        data.add("ee");
+        data.add("ffffff");
+        data.add("gg");
+
+        Iterator<String> iterator = data.stream().sorted(Comparator.comparingInt(String::length)).iterator();
+        String singleItem = iterator.next();
+        int minSize = singleItem.length();
+        while (iterator.hasNext() && minSize == singleItem.length()) {
+            // do something with item
+            System.out.println(singleItem);
+
+            // advance to next one
+            singleItem = iterator.next();
+        }
+
+*
+*
+* */

@@ -119,7 +119,18 @@ public class SubMarine {
         return i_Cord >= 0 && i_Cord < i_Limit;
     }
 
+    public static void printMat(int[][] matToPrint)
+    {
 
+        for (int i = 0; i < matToPrint.length; i++)
+        {
+            for (int j = 0; j < matToPrint[0].length; j++)
+            {
+                System.out.print((matToPrint[i][j] + " "));
+            }
+            System.out.println();
+        }
+    }
 
 }
 

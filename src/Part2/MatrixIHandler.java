@@ -3,11 +3,10 @@ package Part2;
 import Part2.Ex1.CliqueFinder;
 import Part2.Ex2.PathFinder;
 import Part2.Ex4.SubMarine;
+import Part2.Utils.MatrixUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class MatrixIHandler implements IHandler {
 
@@ -36,6 +35,7 @@ public class MatrixIHandler implements IHandler {
                 case "Task1": {
                     int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
                     if (primitiveMatrix!=null){
+                        MatrixUtils.printMat(primitiveMatrix);
                         CliqueFinder.printAllCliques(primitiveMatrix);
                     }
                     break;
@@ -45,34 +45,62 @@ public class MatrixIHandler implements IHandler {
                     Index src = (Index) objectInputStream.readObject();
                     Index dst = (Index) objectInputStream.readObject();
                     if (primitiveMatrix!=null && src!=null && dst!=null){
+                        MatrixUtils.printMat(primitiveMatrix);
                         PathFinder.printAllPathsAscending(src,dst,primitiveMatrix);
+                    }
+                    else
+                    {
+                        System.out.println("from else stat");
                     }
                     break;
                 }
                 case "Task3": {
                     int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
+                    MatrixUtils.printMat(primitiveMatrix);
                     Index src = (Index) objectInputStream.readObject();
+                    System.out.println(src.toString());
                     Index dst = (Index) objectInputStream.readObject();
-                    if (primitiveMatrix!=null && src!=null && dst!=null)
-                    {
-                        Part2.Ex3.PathFinder.printAllPathsAscending(src,dst,primitiveMatrix);
-                    }
+                    System.out.println(dst.toString());
+                    if (primitiveMatrix!=null && src!=null && dst!=null) {
+                        System.out.println("starting taske3");
+                        LinkedHashSet<Collection<Index>> paths = Part2.Ex3.PathFinder.printAllPathsAscending(src, dst, primitiveMatrix);
+                        System.out.println("after taske3");
+                        Iterator<Collection<Index>> iterator = paths.stream().sorted(Comparator.comparingInt((Collection::size))).iterator();
+                        Collection<Index> singleItem = iterator.next();
+                        int minSize = singleItem.size();
+                        while (iterator.hasNext() && minSize == singleItem.size()) {
+                            // do something with item
+                            System.out.println(singleItem);
+                            // advance to next one
+                            singleItem = iterator.next();
+                            // paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
+                            // TODO: need to add print only for the shortest path and optiion to print the matrix.
+                        }}}
+
                     break;
-                }
                 case "Task4": {
                     int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
                     if (primitiveMatrix != null) {
+                        int[][] tempMatrix = primitiveMatrix.clone();
+
                         List<List<Part2.Ex4.Index>> result = SubMarine.searchForSubMarines(primitiveMatrix, primitiveMatrix.length, primitiveMatrix[0].length);
-                        int counter = 0;
+                        /*
+                        *   printing the matrix
+                        */
+                        MatrixUtils.printMat(MatrixUtils.restoreToBinaryMatrix(primitiveMatrix));
+
+                        /*
+                        //can print all indexes represnt the subs.
+
                         for (List<Part2.Ex4.Index> li : result) {
                             for (Part2.Ex4.Index item : li) {
                                 System.out.print(item.toString() + ",");
 
                             }
                             System.out.println();
-                            counter++;
-                        }
-                        System.out.println("there are " + counter + " submarines ");
+                        }*/
+                        System.out.println("there are " + result.size() + " submarines ");
+
                     }
                     break;
                 }
@@ -81,10 +109,4 @@ public class MatrixIHandler implements IHandler {
         }
     }
 
-
-
-    private Collection<Index> getAllNeighbors(int[][] matrix) {
-        //TODO :: foreach matrix index - get all neighors from matrix.getReachable(matrix[i][j]), and add to hashset..
-        return null;
-    }
 }

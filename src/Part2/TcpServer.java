@@ -72,7 +72,9 @@ public class TcpServer {
     }
 
     public static void main(String[] args) {
+
         TcpServer tcpServer =new TcpServer(8010);
+        System.out.println("Server Started on port 8010");
         tcpServer.run(new MatrixIHandler());
     }
 }
