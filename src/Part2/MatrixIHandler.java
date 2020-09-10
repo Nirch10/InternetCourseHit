@@ -1,22 +1,21 @@
 package Part2;
 
+import Part2.Ex1.CliqueFinder;
+import Part2.Ex2.PathFinder;
+import Part2.Ex4.SubMarine;
+import Part2.Utils.MatrixUtils;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
 public class MatrixIHandler implements IHandler {
 
     private Matrix matrix;
-    private Index start, end;
+
 
     public MatrixIHandler() {
-        this.resetParams();
     }
-    private void resetParams(){
-        this.matrix = null;
-        this.start = null;
-        this.end = null;
-    }
+
 
     @Override
     public void handle(InputStream inClient, OutputStream outClient) throws Exception {
@@ -25,7 +24,6 @@ public class MatrixIHandler implements IHandler {
         ObjectOutputStream objectOutputStream=new ObjectOutputStream(outClient);
         ObjectInputStream objectInputStream = new ObjectInputStream(inClient);
 
-        this.resetParams();
 
         boolean dowork = true;
         while (dowork) {
@@ -34,55 +32,69 @@ public class MatrixIHandler implements IHandler {
                     dowork= false;
                     break;
                 }
-                case "matrix": {
-                    int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
-                    //TODO:: implement func..
-                    Collection<Index> indexes = getAllNeighbors(primitiveMatrix);
+                case "Task1": {
+                    Integer[][] primitiveMatrix = (Integer[][]) objectInputStream.readObject();
+                    if (primitiveMatrix!=null){
+                        MatrixUtils.printMat(primitiveMatrix);
+                        CliqueFinder.printAllCliques(primitiveMatrix);
+                    }
+                    break;
+                }
+                case "Task2": {
+                    Integer[][] primitiveMatrix = (Integer[][])  objectInputStream.readObject();
+                    Index src = (Index) objectInputStream.readObject();
+                    Index dst = (Index) objectInputStream.readObject();
+                    if (primitiveMatrix!=null && src!=null && dst!=null){
+                        MatrixUtils.printMat(primitiveMatrix);
+                        PathFinder.printAllPathsAscending(src,dst,primitiveMatrix);
+                    }
+                    else
+                    {
+                        System.out.println("from else stat");
+                    }
+                    break;
+                }
+                case "Task3": {
+                    Integer[][] primitiveMatrix = (Integer[][]) objectInputStream.readObject();
+                    MatrixUtils.printMat(primitiveMatrix);
+                    Index src = (Index) objectInputStream.readObject();
+                    System.out.println(src.toString());
+                    Index dst = (Index) objectInputStream.readObject();
+                    System.out.println(dst.toString());
+                    if (primitiveMatrix!=null && src!=null && dst!=null) {
+                        System.out.println("starting taske3");
+                        Part2.Ex3.PathFinder.printAllPathsAscending(src, dst, primitiveMatrix);
+                        System.out.println("after taske3");
+                    }}
 
-                    this.matrix = new Matrix(primitiveMatrix);
-                    this.matrix.printMatrix();
-                    break;
-                }
-                case "start Index": {
-                    this.start = (Index) objectInputStream.readObject();
-                    break;
-                }
-                case "end Index": {
-                    this.end = (Index) objectInputStream.readObject();
-                    break;
-                }
-                case "AdjacentIndices": {
-                    // receiving index for getAdjacentIndices
-                    Index indexAdjacentIndices = (Index) objectInputStream.readObject();
-                    Collection<Index> adjacentIndices = new ArrayList<>();
-                    if (this.matrix != null){
-                        adjacentIndices.addAll(this.matrix.getAdjacentIndices(indexAdjacentIndices));
+                break;
+                case "Task4": {
+                    Integer[][] primitiveMatrix = (Integer[][])  objectInputStream.readObject();
+                    if (primitiveMatrix != null) {
+                        Integer[][] tempMatrix = primitiveMatrix.clone();
+
+                        //List<List<Part2.Ex4.Index>> result = SubMarine.searchForSubMarines(primitiveMatrix, primitiveMatrix.length, primitiveMatrix[0].length);
+                        /*
+                         *   printing the matrix
+                         */
+//                        MatrixUtils.printMat(MatrixUtils.restoreToBinaryMatrix(primitiveMatrix));
+
+                        /*
+                        //can print all indexes represnt the subs.
+                        for (List<Part2.Ex4.Index> li : result) {
+                            for (Part2.Ex4.Index item : li) {
+                                System.out.print(item.toString() + ",");
+                            }
+                            System.out.println();
+                        }*/
+//                        System.out.println("there are " + result.size() + " submarines ");
+
                     }
-                    // sending getAdjacentIndices
-                    System.out.println("server::getAdjacentIndices:: " + adjacentIndices);
-                    objectOutputStream.writeObject(adjacentIndices);
                     break;
                 }
-                case "Reachables": {
-                    // receiving index for getReachables
-                    Index indexReachables = (Index) objectInputStream.readObject();
-                    Collection<Index> reachables = new ArrayList<>();
-                    if (this.matrix != null){
-                        reachables.addAll(this.matrix.getReachables(indexReachables));
-                    }
-                    // sending getReachables
-                    System.out.println("server::getReachables:: " + reachables);
-                    objectOutputStream.writeObject(reachables);
-                    break;
-                }
+
             }
         }
     }
 
-
-
-    private Collection<Index> getAllNeighbors(int[][] matrix) {
-        //TODO :: foreach matrix index - get all neighors from matrix.getReachable(matrix[i][j]), and add to hashset..
-        return null;
-    }
 }

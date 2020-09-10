@@ -66,7 +66,9 @@ public class CliqueFinder {
     }
 
     public static void main(String[] args){
-        Integer[][] mat = { {1,1,1,1,1},{0,0,0,0,0},{1,1,1,1,1}
+        Integer[][] mat = { {1,1,1,1,1},
+                            {0,0,0,0,0},
+                            {1,1,1,1,1}
                             ,{1,1,1,1,1},
                             {1,1,1,1,1},
                             {0,0,0,0,0},
