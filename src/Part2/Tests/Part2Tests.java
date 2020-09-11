@@ -82,5 +82,23 @@ public class Part2Tests {
     }
 
 
+    @Test
+    public void testEx4(){
+        //for(int j = 0;j < 5;j++) {
+            for (int i = 4; i > 0; i--) {
+                matrix = MatrixUtils.addContentToMat(50,50);
+                matrix[0][0] = 1;
+                matrix[i*10 - 1][i*10 - 1] = 1;
+                MatrixUtils.printMat(matrix);
+                Part2.Ex2.PathFinder.printAllPathsAscending(new Index(0, 0), new Index(i - 1, i - 1), matrix);
+
+                System.out.println("number" + i + "---------------");
+            }
+       // }
+    }
+
+
+
+
 
 }
