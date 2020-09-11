@@ -1,6 +1,5 @@
 package Part2.Ex4;
 
-import Part2.Ex1.CliqueFinder;
 import Part2.Index;
 import java.util.*;
 

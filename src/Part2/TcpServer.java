@@ -73,6 +73,7 @@ public class TcpServer {
 
     public static void main(String[] args) {
         TcpServer tcpServer =new TcpServer(8010);
+        System.out.println("Server is up and running");
         tcpServer.run(new MatrixIHandler());
     }
 }

@@ -74,6 +74,7 @@ public class MatrixUtils {
         }
         return dimensionSize;
     }
+
     public static Integer[][] addContentToMat(int row, int col) {
         Integer[][] returnMat = new Integer[row][col];
         Random rnd = new Random();
@@ -83,6 +84,13 @@ public class MatrixUtils {
                 returnMat[i][j] = Math.abs(i + rnd.nextInt() + j * rnd.nextInt()) %2;
             }
         }
+        return returnMat;
+    }
+    public static Integer[][] addContentToMat(int row, int col,int val) {
+        Integer[][] returnMat = new Integer[row][col];
+        for (int i=0;i<row;i++)
+            for (int j=0;j<col;j++)
+                returnMat[i][j] = val;
         return returnMat;
     }
     public static Index getIndex(String indexSTR, Integer[][] matrix) {
@@ -95,6 +103,11 @@ public class MatrixUtils {
         int col = MatrixUtils.getNumberInLimits(limit,"columns number: ");
         return MatrixUtils.addContentToMat(row,col);
     }
+    public static Integer[][] InitMatrix(int limit,int val) {
+        int row = MatrixUtils.getNumberInLimits(limit,"rows number: ");
+        int col = MatrixUtils.getNumberInLimits(limit,"columns number: ");
+        return MatrixUtils.addContentToMat(row,col,val);
+    }
     public static void printMat(Integer[][] matrix)
     {
         for (int i=0; i<matrix.length; i++)
@@ -103,32 +116,5 @@ public class MatrixUtils {
                 System.out.print(matrix[i][j] + " ");
             System.out.println();
         }
-    }
-
-    public static int[][] restoreToBinaryMatrix(Integer[][] primitiveMatrix) {
-        int[][] result = new int[primitiveMatrix.length][primitiveMatrix[0].length];
-        for (int i=0; i< primitiveMatrix.length;i++){
-            for (int j=0;j<primitiveMatrix[0].length;j++){
-                result[i][j] = primitiveMatrix[i][j];
-                if (primitiveMatrix[i][j] == 2)
-                {
-                    result[i][j] = 1;
-                }
-            }
-        }
-        return result;
-    }
-
-    public static Integer[][] cloneMatrix(Integer [][] matrixToClone)
-    {
-        Integer[][] tempMatrix = new Integer[matrixToClone.length][matrixToClone[0].length];
-        for (int i=0; i<matrixToClone.length;i++ )
-        {
-            for (int j=0; j<matrixToClone[0].length;j++ )
-            {
-                tempMatrix[i][j] = matrixToClone[i][j];
-            }
-        }
-        return tempMatrix;
     }
 }
