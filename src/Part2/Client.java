@@ -20,8 +20,11 @@ public class Client {
         private static ObjectInputStream fromServer;
         private static Socket socket;
 
-        private static void moveToNextEx(){
-                System.out.println("Type enter btn to continue");
+        private static void continueProgram(){
+                continueProgram("Type enter btn to continue");
+        }
+        private static void continueProgram(String msg){
+                System.out.println(msg);
                 scn.nextLine();
         }
         private static void Ex1Runner(ObjectOutputStream toServer) throws IOException {
@@ -44,7 +47,7 @@ public class Client {
                 System.out.println("Head to your server for the result");
 
         }
-        private static void Ex3Runner(ObjectOutputStream toServer) throws IOException {
+        private static void Ex3Runner(ObjectOutputStream toServer){
                 System.out.println("Starting Task #3");
                 matToPreform = MatrixUtils.InitMatrix(dimensionLimit);
                 sourceIndex = MatrixUtils.getIndex("source", matToPreform);
@@ -110,20 +113,18 @@ public class Client {
                 fromServer = new ObjectInputStream(inputStream);
         }
 
-        public static void main(String[] args) throws IOException, ClassNotFoundException {
+        public static void main(String[] args) throws IOException{
                 scn = new Scanner((System.in));
                 connectToServer(serverIp, port);
                 Ex1Runner(toServer);
-                moveToNextEx();
+                continueProgram();
                 Ex2Runner(toServer);
-                moveToNextEx();
+                continueProgram();
                 Ex3Runner(toServer);
-                moveToNextEx();
+                continueProgram();
                 Ex4Runner(toServer);
 
-                System.out.println("Please press enter to end server-client connection");
-                scn.nextLine();
-
+                continueProgram("Type enter to close connection");
                 toServer.writeObject("stop");
 
                 System.out.println("client::Closing all streams!!!!");

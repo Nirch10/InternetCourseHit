@@ -23,7 +23,6 @@ public class TcpServer {
 
     public void run(IHandler concreteIHandlerStrategy) {
         this.requestConcreteIHandler = concreteIHandlerStrategy;
-
         Runnable mainLogic = () -> {
             try {
                 executor = new ThreadPoolExecutor(
