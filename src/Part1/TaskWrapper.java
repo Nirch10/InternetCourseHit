@@ -3,17 +3,18 @@ package Part1;
 import java.util.concurrent.*;
 import java.util.function.Function;
 
-public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskType> {
-    protected BlockingQueue<V> taskQueue;
+public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper<?>> {
     protected TaskType taskType;
-    protected Function<Runnable, V> defaultFunction;
     protected RunnableFuture<V> runnableFuture;
 
-
-
-    public TaskWrapper(RunnableFuture<V> runnableFuture, TaskType taskType){
+    public TaskWrapper(Runnable runnable, TaskType taskType){
         this.taskType = taskType;
-        this.runnableFuture = runnableFuture;
+        this.runnableFuture = (RunnableFuture<V>) runnable;
+    }
+
+    public TaskWrapper(Callable<V> callable, TaskType taskType){
+        this.taskType = taskType;
+        this.runnableFuture = new FutureTask<>(callable);
     }
 
     @Override
@@ -46,33 +47,17 @@ public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskType> {
     }
 
     @Override
-    public int compareTo(TaskType taskType) {
-        if(taskType.getPriority() < this.taskType.getPriority()) return 1;
-        if(taskType.getPriority() > this.taskType.getPriority()) return -1;
-        return 0;
+    public int compareTo(TaskWrapper taskWrapper) {
+        return taskWrapper.taskType.getPriority().compareTo(taskType.getPriority());
     }
-//    public void convertAndAddToQueue(final Runnable runnable, Function<Runnable, V> runnableTFunction) {
-//        if (runnableTFunction == null) {
-//            runnableTFunction = defaultFunction;
-//        }
-//        try {
-//            taskQueue.offer(runnableTFunction.apply(runnable), 1000, TimeUnit.MILLISECONDS);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
     @Override
     public String toString(){
         return taskType.toString();
     }
+    // Google :: prinston find all paths from origin to dest
 
-//
-//    public <V> Future<V> convertAndAddToQueue(final Callable<V> callable,
-//                                              Function<Runnable,V> runnableTFunction)
-//    {
-//        FutureTask<V> futureTask = new FutureTask<>(callable);
-//        //convertAndAddToQueue(futureTask,runnableTFunction);
-//        return futureTask;
-//    }
+    //public <V> Future<V> apply(final Runnable runnable,final V v, BiFunction<Runnable,V,RunnableFuture<V>> runnableTFunction) throws InterruptedException
 
+    //public<V> Future<V> apply(final Callable<V> callable,Function<Callable<V>,RunnableFuture<V>> runnableTFunction) throws InterruptedException
 }

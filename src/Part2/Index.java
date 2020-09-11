@@ -12,6 +12,11 @@ public class Index implements Serializable {
         this.column = oColumn;
     }
 
+    public int getRow(){return row;}
+    public int getColumn(){return column;}
+    public void setRow(int row){ this.row = row;}
+    public void setColumn(int column){this.column = column;}
+
     @Override
     public String toString(){
         return "(" + row + "," + column + ")";
