@@ -85,7 +85,7 @@ public class MatrixUtils {
         }
         return returnMat;
     }
-    public static Index getIndex(String indexSTR, int[][] matrix) {
+    public static Index getIndex(String indexSTR, Integer[][] matrix) {
         int x = MatrixUtils.getNumberInLimits(matrix.length,"x cord for "+ indexSTR + " index: ");
         int y = MatrixUtils.getNumberInLimits(matrix[0].length,"y cord for "+ indexSTR + " index: ");
         return new Index(x,y);
@@ -105,7 +105,7 @@ public class MatrixUtils {
         }
     }
 
-    public static int[][] restoreToBinaryMatrix(int[][] primitiveMatrix) {
+    public static int[][] restoreToBinaryMatrix(Integer[][] primitiveMatrix) {
         int[][] result = new int[primitiveMatrix.length][primitiveMatrix[0].length];
         for (int i=0; i< primitiveMatrix.length;i++){
             for (int j=0;j<primitiveMatrix[0].length;j++){
@@ -121,7 +121,7 @@ public class MatrixUtils {
 
     public static Integer[][] cloneMatrix(Integer [][] matrixToClone)
     {
-        Integer [][] tempMatrix = new Integer[matrixToClone.length][matrixToClone[0].length];
+        Integer[][] tempMatrix = new Integer[matrixToClone.length][matrixToClone[0].length];
         for (int i=0; i<matrixToClone.length;i++ )
         {
             for (int j=0; j<matrixToClone[0].length;j++ )

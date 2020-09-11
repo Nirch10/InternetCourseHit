@@ -1,17 +1,15 @@
 package Part2.Ex1;
 
+import Part2.CELLSTATUS;
 import Part2.Index;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 import static Part2.Utils.MatrixUtils.getReachables;
 
 public class CliqueFinder {
 
-    private static final int visited = 2;
+    private static ExecutorService executor =  Executors.newFixedThreadPool(10);
 
     public static void printAllCliques(Integer[][] matrix){
         HashSet<Collection<Index>> cliques = new HashSet<>();
@@ -27,40 +25,29 @@ public class CliqueFinder {
                 System.out.println(clique);
         });
     }
-
-
     private static Collection<Index> findCliqueByIndex(Integer[][] matrix, Index index, Collection<Index> clique){
-
         if(matrix[index.getRow()][index.getColumn()] != 1)return clique;
         clique.add(index);
-        matrix[index.getRow()][index.getColumn()] = visited;
+        matrix[index.getRow()][index.getColumn()] = (CELLSTATUS.VISITED.getStatus());
         Collection<Index> indexNeighbors = getReachables(matrix, index);
         if (indexNeighbors.size() == 0) return clique;
-
         Stack<Index> neighbors = new Stack<>();
         indexNeighbors.forEach(neighbor -> neighbors.push(neighbor));
-
         while (neighbors.empty() == false){
             Index newIndex = neighbors.pop();
-            Executor executor =  Executors.newFixedThreadPool(10);
             Integer[][] newThreadClonedMat = matrix;
             Collection<Index> newThreadPaths = clique ;
             CompletableFuture<Collection<Index>> completableFuture = CompletableFuture.runAsync(()->{})
                     .thenApplyAsync(result -> {
-                        try {
-                            return findCliqueByIndex(newThreadClonedMat,newIndex, newThreadPaths);
-                        }
-                        catch
-                        (Exception e){ }
+                        try { return findCliqueByIndex(newThreadClonedMat,newIndex, newThreadPaths); }
+                        catch (Exception e){ }
                         return newThreadPaths;
-                    },executor);
-            try {
-                clique = completableFuture.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
+                    });
+            try { clique = completableFuture.get(); }
+            catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            catch (ExecutionException e) { e.printStackTrace(); }
         }
         return clique;
     }

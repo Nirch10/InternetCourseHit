@@ -16,12 +16,23 @@ public class PathFinder {
     public static void printAllPathsAscending(Index src, Index dst, Integer[][] matrix){
         LinkedHashSet<Collection<Index>> paths = new LinkedHashSet<>();
         paths = dfs(src, dst, matrix, paths,new LinkedList<>());
-        paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
+
+        Iterator<Collection<Index>> iterator = paths.stream().sorted(Comparator.comparingInt(Collection::size))
+        .iterator();
+        Collection<Index> collection;
+        if(iterator.hasNext()) {
+            collection = iterator.next();
+            int minSize = collection.size();
+            paths.stream().filter(s -> s.size() == minSize).forEach(System.out::println);
+        }
+        else{
+            System.out.println("No such route exists...");
+        }
     }
 
-    private static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, Integer[][] mat
-                                                        , LinkedHashSet<Collection<Index>> paths,
-                                                        Collection<Index> parentPath) {
+    public static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, Integer[][] mat
+            , LinkedHashSet<Collection<Index>> paths,
+                                                       Collection<Index> parentPath) {
         parentPath.add(src);
         Collection<Index> newParentPath = new LinkedList<>(parentPath);
         Integer[][] clonedMat =  mat.clone();

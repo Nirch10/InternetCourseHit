@@ -1,11 +1,13 @@
 package Part2.Ex2;
 
 import Part2.Index;
+
 import sun.nio.ch.ThreadPool;
 
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static Part2.Utils.MatrixUtils.getReachables;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
@@ -17,19 +19,13 @@ public class PathFinder {
      private static final int unmarked_cell = 1;
      private static ExecutorService executor;
      private static ForkJoinPool pool = new ForkJoinPool(1);
+     private  List<CompletableFuture<Collection<Index>>> completableFutureList;
 
     public static void printAllPathsAscending(Index src, Index dst, Integer[][] matrix){
         LinkedHashSet<Collection<Index>> paths = new LinkedHashSet<>();
-        executor =  Executors.newFixedThreadPool(10);
-        //executor =   new ThreadPoolExecutor(1, 10, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
-        try {
-            paths = dfs(src, dst, matrix, paths,new LinkedList<>());
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        executor.shutdown();
+        //executor =  Executors.newFixedThreadPool(10);
+        paths = Part2.Ex3.PathFinder.dfs(src,dst,matrix,paths,new LinkedList<>());
+        //executor.shutdown();
         paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
     }
 
@@ -80,6 +76,9 @@ public class PathFinder {
         }
         return paths;
     }
+
+
+
 
     public static void main(String[] args){
         Integer[][] mat = { {1,1,0,1,0},

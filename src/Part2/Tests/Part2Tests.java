@@ -27,9 +27,9 @@ public class Part2Tests {
 
     @Test
     public void testEx3(){
-        for(int j = 0;j < 5;j++) {
-            for (int i = 4; i > 0; i--) {
-                matrix = MatrixUtils.addContentToMat(5,5);
+       // for(int j = 0;j < 5;j++) {
+            for (int i = 6; i > 0; i--) {
+                matrix = MatrixUtils.addContentToMat(6,6);
                 matrix[0][0] = 1;
                 matrix[i - 1][i - 1] = 1;
                 MatrixUtils.printMat(matrix);
@@ -37,7 +37,7 @@ public class Part2Tests {
 
                 System.out.println("number" + i + "---------------");
             }
-        }
+       // }
     }
 
     @Test

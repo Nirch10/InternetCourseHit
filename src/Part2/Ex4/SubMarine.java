@@ -18,8 +18,6 @@ public class SubMarine {
     private final int col = 10;
     private Random rnd = new Random();
 
-
-
     public SubMarine() {
         mat = new int[row][col];
         initMat();
@@ -43,8 +41,8 @@ public class SubMarine {
         printMat(savedMat);
 
     }
-    private void initMat()
-    {
+
+    private void initMat() {
         for (int i=0;i<row;i++)
         {
             for (int j=0;j<col;j++){
@@ -52,17 +50,16 @@ public class SubMarine {
             }
         }
     }
-    private void copyMat(int[][] source, int[][] dest , int row, int col){
-        for (int i=0;i<row;i++)
-        {
-            for (int j=0;j<col;j++)
-            {
-                dest[i][j] = source[i][j];
-            }
-        }
-    }
-    private void printMat(int[][] matToPrint)
-    {
+//    private void copyMat(int[][] source, int[][] dest , int row, int col){
+//        for (int i=0;i<row;i++)
+//        {
+//            for (int j=0;j<col;j++)
+//            {
+//                dest[i][j] = source[i][j];
+//            }
+//        }
+//    }
+    private void printMat(int[][] matToPrint) {
 
         for (int i = 0; i < row; i++)
         {
@@ -73,9 +70,7 @@ public class SubMarine {
             System.out.println();
         }
     }
-
-    private List<List<Index>> searchForSubMarines()
-    {
+    private List<List<Index>> searchForSubMarines() {
         List<List<Index>> subMarines = new ArrayList<>();
         List<Index> currentSub = new ArrayList<>();
         eDirection currentSearchDirection = eDirection.NONE;
@@ -100,8 +95,7 @@ public class SubMarine {
         }
         return subMarines;
     }
-    private void searchForCurrentSub(List<List<Index>> subMarines,  List<Index> currentSub,  eDirection currentSearchDirection,  int tempI,  int tempJ)
-    {
+    private void searchForCurrentSub(List<List<Index>> subMarines,  List<Index> currentSub,  eDirection currentSearchDirection,  int tempI,  int tempJ) {
         while (currentSearchDirection != eDirection.NONE)
         {
             currentSub.add(new Index(tempI,tempJ));
@@ -127,9 +121,7 @@ public class SubMarine {
         }
         currentSub = new ArrayList<>();
     }
-
-    private boolean checkForSpecificDirection(eDirection i_DirectionToLook ,int i_I,int i_J)
-    {
+    private boolean checkForSpecificDirection(eDirection i_DirectionToLook ,int i_I,int i_J) {
         switch (i_DirectionToLook)
         {
             case UP:
@@ -144,9 +136,7 @@ public class SubMarine {
                 return false;
         }
     }
-
-    private eDirection checkForNeighborsDirection(int i_I, int i_J)
-    {
+    private eDirection checkForNeighborsDirection(int i_I, int i_J) {
         if ((checkCordLimit(i_J + 1, col) && mat[i_I][i_J + 1] == 1))
         {
             return eDirection.RIGHT;
