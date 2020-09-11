@@ -6,8 +6,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Collection;
 
 public class TaskTypeTest {
     static TaskType tester;

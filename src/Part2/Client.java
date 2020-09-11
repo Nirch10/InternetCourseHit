@@ -20,7 +20,7 @@ public class Client {
                 OutputStream outputStream = socket.getOutputStream();
                 ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
                 ObjectInputStream fromServer = new ObjectInputStream(inputStream);
-/*
+
                 // sending commands for task #1
                 System.out.println("Starting Task #1");
                 System.out.println("****************");
@@ -43,7 +43,7 @@ public class Client {
                 System.out.println("check for result at server side");
                 System.out.println("Please press enter to continue to next task");
                 scn.nextLine();
-*/
+
                 // sending commands for task #3
                 System.out.println("Starting Task #3");
                 System.out.println("****************");
@@ -61,7 +61,7 @@ public class Client {
                 System.out.println("check for result at server side");
                 System.out.println("Please press enter to continue to next task");
                 scn.nextLine();
-/*
+
                 // sending commands for task #4
                 System.out.println("Starting Task #4");
                 System.out.println("****************");
@@ -69,7 +69,6 @@ public class Client {
                 toServer.writeObject("Task4");
                 toServer.writeObject(matToPreform);
                 System.out.println("check for result at server side");
-*/
 
 
                 System.out.println("Please press enter to end server-client connection");

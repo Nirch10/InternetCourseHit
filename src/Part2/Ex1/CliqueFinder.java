@@ -11,13 +11,7 @@ public class CliqueFinder {
 
     private static ExecutorService executor =  Executors.newFixedThreadPool(10);
 
-    public static void printAllCliques(Integer[][] matrix){
-        HashSet<Collection<Index>> cliques = getAllCliques(matrix);
-        cliques.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(clique -> System.out.println(clique));
-    }
-    public static HashSet<Collection<Index>> getAllCliques(Integer[][] matrix){
-        return getAllCliques(matrix, 0);
-    }
+    public static HashSet<Collection<Index>> getAllCliques(Integer[][] matrix){ return getAllCliques(matrix, 0); }
     public static HashSet<Collection<Index>> getAllCliques(Integer[][] matrix,int minimumCliqueSize){
         HashSet<Collection<Index>> cliques = new HashSet<>();
         Integer[][] dupMatrix = matrix.clone();
@@ -25,11 +19,10 @@ public class CliqueFinder {
         for (int i = 0; i < dupMatrix.length; i ++) {
             for (int j = 0; j < dupMatrix[i].length; j++) {
                 cliqueByIndex= findCliqueByIndex(dupMatrix, new Index(i, j), new LinkedList<>());
-                if(cliqueByIndex.size() != minimumCliqueSize)
+                if(cliqueByIndex.size() > minimumCliqueSize)
                     cliques.add(cliqueByIndex);
             }
         }
-
         return cliques;
     }
     public static Collection<Index> findCliqueByIndex(Integer[][] matrix, Index index, Collection<Index> clique){
@@ -59,18 +52,18 @@ public class CliqueFinder {
         return clique;
     }
 
-    public static void main(String[] args){
-        Integer[][] mat = { {1,1,1,1,1},
-                            {0,0,0,0,0},
-                            {1,1,1,1,1}
-                            ,{1,1,1,1,1},
-                            {1,1,1,1,1},
-                            {0,0,0,0,0},
-                            {0,0,0,0,0}};
-        Index src = new Index(0, 0);
-        Index dst = new Index(2, 4);
-        HashSet<Collection<Index>> paths = new HashSet<>();
-        printAllCliques(mat);
-    }
+//    public static void main(String[] args){
+//        Integer[][] mat = { {1,1,1,1,1},
+//                            {0,0,0,0,0},
+//                            {1,1,1,1,1}
+//                            ,{1,1,1,1,1},
+//                            {1,1,1,1,1},
+//                            {0,0,0,0,0},
+//                            {0,0,0,0,0}};
+//        Index src = new Index(0, 0);
+//        Index dst = new Index(2, 4);
+//        HashSet<Collection<Index>> paths = new HashSet<>();
+//        printAllCliques(mat);
+//    }
 
 }

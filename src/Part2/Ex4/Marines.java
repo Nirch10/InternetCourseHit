@@ -5,16 +5,7 @@ import Part2.Index;
 import java.util.*;
 
 public class Marines {
-
-    public static void printAllSubMarines(Integer[][] matrix){
-        HashSet<Collection<Index>> cliques = CliqueFinder.getAllCliques(matrix,1);
-        if(areCliquesSquared(cliques))
-            System.out.println("There are " + cliques.size() + " sub-Marines");
-        else
-            System.out.println("Invalid matrix");
-    }
-
-    private static Boolean areCliquesSquared(HashSet<Collection<Index>>  cliques){
+    public static Boolean areCliquesSquared(HashSet<Collection<Index>> cliques){
         for (Collection clique : cliques) {
             if(isCliqueSquared(clique) == false)
                 return false;
@@ -41,16 +32,16 @@ public class Marines {
     }
 
 
-    public static void main(String[] args){
-        Integer[][] mat = { {1,1,1,1,1},
-                {0,0,0,0,0},
-                {1,1,0,1,1}
-                ,{1,1,0,1,1},
-                {1,1,0,0,0},
-                {0,0,0,0,1},
-                {0,0,0,0,0}};
-        HashSet<Collection<Index>> paths = new HashSet<>();
-        printAllSubMarines(mat);
-    }
+//    public static void main(String[] args){
+//        Integer[][] mat = { {1,1,1,1,1},
+//                {0,0,0,0,0},
+//                {1,1,0,1,1}
+//                ,{1,1,0,1,1},
+//                {1,1,0,0,0},
+//                {0,0,0,0,1},
+//                {0,0,0,0,0}};
+//        HashSet<Collection<Index>> paths = new HashSet<>();
+//        printAllSubMarines(mat);
+//    }
 
 }
