@@ -1,4 +1,4 @@
-package Part2.Tests;
+package Tests;
 
 import Part2.Ex2and3.PathFinder;
 import Part2.Index;
