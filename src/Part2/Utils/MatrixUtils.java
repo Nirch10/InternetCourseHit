@@ -65,11 +65,11 @@ public class MatrixUtils {
     }
     public static int getNumberInLimits(int limit, String limitName){
         Scanner scn = new Scanner((System.in));
-        System.out.print("Please enter " + limitName  );
+        System.out.print("Type " + limitName  );
         int dimensionSize = scn.nextInt();
         while ((dimensionSize < 0) || (dimensionSize > limit))
         {
-            System.out.print("You entered invalid input. Please enter valid input: ");
+            System.out.print("Invalid input. type again please: ");
             dimensionSize = scn.nextInt();
         }
         return dimensionSize;
@@ -94,8 +94,8 @@ public class MatrixUtils {
         return returnMat;
     }
     public static Index getIndex(String indexSTR, Integer[][] matrix) {
-        int x = MatrixUtils.getNumberInLimits(matrix.length,"x cord for "+ indexSTR + " index: ");
-        int y = MatrixUtils.getNumberInLimits(matrix[0].length,"y cord for "+ indexSTR + " index: ");
+        int x = MatrixUtils.getNumberInLimits(matrix.length,"x for"+ indexSTR + " index: ");
+        int y = MatrixUtils.getNumberInLimits(matrix[0].length,"y for"+ indexSTR + " index: ");
         return new Index(x,y);
     }
     public static Integer[][] InitMatrix(int limit) {

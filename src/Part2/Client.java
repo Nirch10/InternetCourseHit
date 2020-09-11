@@ -10,10 +10,10 @@ public class Client {
         static final int dimensionLimit = 500;
         static final int port = 8010;
         static final String serverIp = "127.0.0.1";
-        static Integer[][] matToPreform;
-        static Index sourceIndex;
-        static Index destinationIndex;
-        static Scanner scn = new Scanner((System.in));
+        static Integer[][] clientMatrix;
+        static Index source;
+        static Index dest;
+        static Scanner scanner;
         private static InputStream inputStream;
         private static OutputStream outputStream;
         private static  ObjectOutputStream toServer ;
@@ -25,38 +25,38 @@ public class Client {
         }
         private static void continueProgram(String msg){
                 System.out.println(msg);
-                scn.nextLine();
+                scanner.nextLine();
         }
         private static void Ex1Runner(ObjectOutputStream toServer) throws IOException {
                 System.out.println("Starting Task #1");
-                matToPreform = MatrixUtils.InitMatrix(dimensionLimit);
+                clientMatrix = MatrixUtils.InitMatrix(dimensionLimit);
                 toServer.writeObject("Task1");
-                toServer.writeObject(matToPreform);
+                toServer.writeObject(clientMatrix);
                 System.out.println("Head to your server for the result");
 
         }
         private static void Ex2Runner(ObjectOutputStream toServer) throws IOException {
                 System.out.println("Starting Task #2");
-                matToPreform = MatrixUtils.InitMatrix(dimensionLimit);
-                sourceIndex = MatrixUtils.getIndex("source", matToPreform);
-                destinationIndex = MatrixUtils.getIndex("destination",matToPreform);
+                clientMatrix = MatrixUtils.InitMatrix(dimensionLimit);
+                source = MatrixUtils.getIndex("source", clientMatrix);
+                dest = MatrixUtils.getIndex("destination", clientMatrix);
                 toServer.writeObject("Task2");
-                toServer.writeObject(matToPreform);
-                toServer.writeObject(sourceIndex);
-                toServer.writeObject(destinationIndex);
+                toServer.writeObject(clientMatrix);
+                toServer.writeObject(source);
+                toServer.writeObject(dest);
                 System.out.println("Head to your server for the result");
 
         }
         private static void Ex3Runner(ObjectOutputStream toServer){
                 System.out.println("Starting Task #3");
-                matToPreform = MatrixUtils.InitMatrix(dimensionLimit);
-                sourceIndex = MatrixUtils.getIndex("source", matToPreform);
-                destinationIndex = MatrixUtils.getIndex("destination", matToPreform);
+                clientMatrix = MatrixUtils.InitMatrix(dimensionLimit);
+                source = MatrixUtils.getIndex("source", clientMatrix);
+                dest = MatrixUtils.getIndex("destination", clientMatrix);
                 try {
                         toServer.writeObject("Task3");
-                        toServer.writeObject(matToPreform);
-                        toServer.writeObject(sourceIndex);
-                        toServer.writeObject(destinationIndex);
+                        toServer.writeObject(clientMatrix);
+                        toServer.writeObject(source);
+                        toServer.writeObject(dest);
                 } catch (Exception ex) {
                         System.out.println("problem");
                 }
@@ -65,10 +65,10 @@ public class Client {
         }
         private static void Ex4Runner(ObjectOutputStream toServer) throws IOException {
                 System.out.println("Starting Task #4");
-                matToPreform = MatrixUtils.InitMatrix(dimensionLimit,0);
-                matToPreform = addSubMarines(matToPreform);
+                clientMatrix = MatrixUtils.InitMatrix(dimensionLimit,0);
+                clientMatrix = addSubMarines(clientMatrix);
                 toServer.writeObject("Task4");
-                toServer.writeObject(matToPreform);
+                toServer.writeObject(clientMatrix);
                 System.out.println("Head to your server for the result");
         }
 
@@ -76,16 +76,16 @@ public class Client {
                 int startRow = 0,startCol = 0,endRow = 0,endCol = 0;
                 while (startRow != -1 && startCol != -1 && endCol != -1 && endRow != -1){
                         System.out.println("Type your marine start row index (to finish type -1)");
-                        startRow = scn.nextInt();
+                        startRow = scanner.nextInt();
                         if(startRow == -1)break;
                         System.out.println("Type your marine start col index (to finish type -1)");
-                        startCol = scn.nextInt();
+                        startCol = scanner.nextInt();
                         if(startCol == -1)break;
                         System.out.println("Type your marine end row index (to finish type -1)");
-                        endRow = scn.nextInt();
+                        endRow = scanner.nextInt();
                         if(endRow == -1)break;
                         System.out.println("Type your marine end col index (to finish type -1)");
-                        endCol = scn.nextInt();
+                        endCol = scanner.nextInt();
                         if(tryAddSubmarine(startRow,startCol,endRow,endCol,matrix))
                                 System.out.println("Added marine successfully");
                         else
@@ -114,7 +114,7 @@ public class Client {
         }
 
         public static void main(String[] args) throws IOException{
-                scn = new Scanner((System.in));
+                scanner = new Scanner((System.in));
                 connectToServer(serverIp, port);
                 Ex1Runner(toServer);
                 continueProgram();
