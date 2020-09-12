@@ -67,7 +67,7 @@ public class MatrixUtils {
         Scanner scn = new Scanner((System.in));
         System.out.print("Type " + limitName  );
         int dimensionSize = scn.nextInt();
-        while ((dimensionSize < 0) || (dimensionSize > limit))
+        while ((dimensionSize < 0) || (dimensionSize >= limit))
         {
             System.out.print("Invalid input. type again please: ");
             dimensionSize = scn.nextInt();

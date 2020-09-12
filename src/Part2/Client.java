@@ -23,9 +23,9 @@ public class Client {
         private static void continueProgram(){
                 continueProgram("Type enter btn to continue");
         }
-        private static void continueProgram(String msg){
+        private static String continueProgram(String msg){
                 System.out.println(msg);
-                scanner.nextLine();
+                return scanner.nextLine();
         }
         private static void Ex1Runner(ObjectOutputStream toServer) throws IOException {
                 System.out.println("Starting Task #1");
@@ -116,14 +116,31 @@ public class Client {
         public static void main(String[] args) throws IOException{
                 scanner = new Scanner((System.in));
                 connectToServer(serverIp, port);
-                Ex1Runner(toServer);
-                continueProgram();
-                Ex2Runner(toServer);
-                continueProgram();
-                Ex3Runner(toServer);
-                continueProgram();
-                Ex4Runner(toServer);
-
+                int loopEx = 1;
+                while(loopEx == 1) {
+                        Ex1Runner(toServer);
+                        try{
+                        loopEx =  Integer.parseInt(continueProgram("To run Ex1 again, type 1.\n To Continue type anything else"));}
+                        catch (NumberFormatException ex){loopEx = 0;}
+                }
+                loopEx = 2;
+                while (loopEx == 2) {
+                        Ex2Runner(toServer);
+                       try{ loopEx = Integer.parseInt(continueProgram("To run Ex2 again, type 2.\n To Continue type anything else"));}
+               catch (NumberFormatException ex){loopEx = 0;}
+                }
+                loopEx = 3;
+                while(loopEx == 3) {
+                        Ex3Runner(toServer);
+                        try{loopEx = Integer.parseInt(continueProgram("To run Ex3 again, type 3.\n To Continue type anything else"));}
+                        catch (NumberFormatException ex){loopEx = 0;}
+                }
+                loopEx = 4;
+                while (loopEx == 4) {
+                        Ex4Runner(toServer);
+                        try{loopEx = Integer.parseInt(continueProgram("To run Ex4 again, type 4.\n To Continue type anything else"));}
+                        catch (NumberFormatException ex){loopEx = 0;}
+                }
                 continueProgram("Type enter to close connection");
                 toServer.writeObject("stop");
 
