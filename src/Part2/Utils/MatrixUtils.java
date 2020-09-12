@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class MatrixUtils {
 
-    private static Collection<Index> getAdjacentIndices(Integer[][] matrix, final Index index) {
+    private static Collection<Index> getAdjacentIndices(int[][] matrix, final Index index) {
         Collection<Index> list = new ArrayList<>();
         int extracted = -1;
         try {
@@ -48,11 +48,11 @@ public class MatrixUtils {
         return list;
     }
 
-    private static int getValue(Integer[][] matrix, Index index) {
+    private static int getValue(int[][] matrix, Index index) {
         return matrix[index.getRow()][index.getColumn()];
     }
 
-    public static Collection<Index> getReachables(Integer[][] matrix, Index index) {
+    public static Collection<Index> getReachables(int[][] matrix, Index index) {
         ArrayList<Index> filteredIndices = new ArrayList<>();
         try{
 
@@ -74,8 +74,8 @@ public class MatrixUtils {
         }
         return dimensionSize;
     }
-    public static Integer[][] addContentToMat(int row, int col) {
-        Integer[][] returnMat = new Integer[row][col];
+    public static int[][] addContentToMat(int row, int col) {
+        int[][] returnMat = new int[row][col];
         Random rnd = new Random();
         for (int i=0;i<row;i++)
         {
@@ -85,17 +85,17 @@ public class MatrixUtils {
         }
         return returnMat;
     }
-    public static Index getIndex(String indexSTR, Integer[][] matrix) {
+    public static Index getIndex(String indexSTR, int[][] matrix) {
         int x = MatrixUtils.getNumberInLimits(matrix.length,"x cord for "+ indexSTR + " index: ");
         int y = MatrixUtils.getNumberInLimits(matrix[0].length,"y cord for "+ indexSTR + " index: ");
         return new Index(y,x);
     }
-    public static Integer[][] InitMatrix(int limit) {
+    public static int[][] InitMatrix(int limit) {
         int row = MatrixUtils.getNumberInLimits(limit,"rows number: ");
         int col = MatrixUtils.getNumberInLimits(limit,"columns number: ");
         return MatrixUtils.addContentToMat(row,col);
     }
-    public static void printMat(Integer[][] matrix)
+    public static void printMat(int[][] matrix)
     {
         for (int i=0; i<matrix.length; i++)
         {
@@ -105,8 +105,8 @@ public class MatrixUtils {
         }
     }
 
-    public static Integer[][] restoreToBinaryMatrix(Integer[][] primitiveMatrix) {
-        Integer[][] result = new Integer[primitiveMatrix.length][primitiveMatrix[0].length];
+    public static int[][] restoreToBinaryMatrix(int[][] primitiveMatrix) {
+        int[][] result = new int[primitiveMatrix.length][primitiveMatrix[0].length];
         for (int i=0; i< primitiveMatrix.length;i++){
             for (int j=0;j<primitiveMatrix[0].length;j++){
                 result[i][j] = primitiveMatrix[i][j];
@@ -119,9 +119,9 @@ public class MatrixUtils {
         return result;
     }
 
-    public static Integer[][] cloneMatrix(Integer [][] matrixToClone)
+    public static int[][] cloneMatrix(int [][] matrixToClone)
     {
-        Integer[][] tempMatrix = new Integer[matrixToClone.length][matrixToClone[0].length];
+        int[][] tempMatrix = new int[matrixToClone.length][matrixToClone[0].length];
         for (int i=0; i<matrixToClone.length;i++ )
         {
             for (int j=0; j<matrixToClone[0].length;j++ )
@@ -132,9 +132,9 @@ public class MatrixUtils {
         return tempMatrix;
     }
 
-    public static Integer[][] CreateMatrixForSubMarine(int row, int col, int numberOfTries)
+    public static int[][] CreateMatrixForSubMarine(int row, int col, int numberOfTries)
     {
-        Integer[][] matrix = new Integer[row][col];
+        int[][] matrix = new int[row][col];
         boolean isRowTurn = true;
         int dummyRow = 0;
         int dummyCol = 0;

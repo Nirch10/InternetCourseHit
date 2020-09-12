@@ -31,7 +31,7 @@ public class MatrixIHandler implements IHandler {
                     break;
                 }
                 case "Task1": {
-                    Integer[][] primitiveMatrix = (Integer[][]) objectInputStream.readObject();
+                    int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
                     if (primitiveMatrix!=null){
                         MatrixUtils.printMat(primitiveMatrix);
                         CliqueFinder.printAllCliques(primitiveMatrix);
@@ -39,7 +39,7 @@ public class MatrixIHandler implements IHandler {
                     break;
                 }
                 case "Task2": {
-                    Integer[][] primitiveMatrix = (Integer[][])  objectInputStream.readObject();
+                    int[][] primitiveMatrix = (int[][])  objectInputStream.readObject();
                     Index src = (Index) objectInputStream.readObject();
                     Index dst = (Index) objectInputStream.readObject();
                     if (primitiveMatrix!=null && src!=null && dst!=null){
@@ -49,7 +49,7 @@ public class MatrixIHandler implements IHandler {
                     break;
                 }
                 case "Task3": {
-                    Integer[][] primitiveMatrix = (Integer[][]) objectInputStream.readObject();
+                    int[][] primitiveMatrix = (int[][]) objectInputStream.readObject();
                     MatrixUtils.printMat(primitiveMatrix);
                     Index src = (Index) objectInputStream.readObject();
                     Index dst = (Index) objectInputStream.readObject();
@@ -59,7 +59,7 @@ public class MatrixIHandler implements IHandler {
 
                 break;
                 case "Task4": {
-                    Integer[][] primitiveMatrix = (Integer[][])  objectInputStream.readObject();
+                    int[][] primitiveMatrix = (int[][])  objectInputStream.readObject();
                     if (primitiveMatrix != null) {
                         Marines.printAllSubMarines(primitiveMatrix);
                         primitiveMatrix = MatrixUtils.restoreToBinaryMatrix((primitiveMatrix));

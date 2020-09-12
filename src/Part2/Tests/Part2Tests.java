@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 public class Part2Tests {
-    static Integer[][] matrix;
+    static int[][] matrix;
     @BeforeClass
     public static void testSetup() throws IOException {
 
@@ -40,7 +40,7 @@ public class Part2Tests {
     public void testEx3SpecMatrix(){
         for(int j = 0;j < 3;j++) {
             for (int i = 4; i > 0; i--) {
-                matrix = new Integer[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
+                matrix = new int[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
                 MatrixUtils.printMat(matrix);
                 PathFinder.printAllShortestPaths(new Index(0, 0), new Index(1,1), matrix);
 
@@ -53,7 +53,7 @@ public class Part2Tests {
     public void testEx2SpecMatrix(){
       //  for(int j = 0;j < 3;j++) {
             for (int i = 4; i > 0; i--) {
-                matrix = new Integer[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
+                matrix = new int[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
                 MatrixUtils.printMat(matrix);
                 Part2.Ex2.PathFinder.printAllPathsAscending(new Index(0, 0), new Index(1, 1), matrix);
 

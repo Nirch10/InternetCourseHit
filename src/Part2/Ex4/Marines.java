@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Marines {
 
-    public static void printAllSubMarines(Integer[][] matrix){
+    public static void printAllSubMarines(int[][] matrix){
         HashSet<Collection<Index>> cliques = CliqueFinder.getAllCliques(matrix,1);
         if(areCliquesSquared(cliques))
             System.out.println("There are " + cliques.size() + " sub-Marines");
@@ -42,7 +42,7 @@ public class Marines {
 
 
     public static void main(String[] args){
-        Integer[][] mat = { {1,1,1,1,1},
+        int[][] mat = { {1,1,1,1,1},
                 {0,0,0,0,0},
                 {1,1,0,1,1}
                 ,{1,1,0,1,1},

@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Client {
         static final int dimensionLimit = 500;
-        static Integer[][] matToPreform;
+        static int[][] matToPreform;
         static Index sourceIndex;
         static Index destinationIndex;
 

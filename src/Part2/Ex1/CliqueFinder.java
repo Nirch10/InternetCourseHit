@@ -11,16 +11,16 @@ public class CliqueFinder {
 
     private static ExecutorService executor =  Executors.newFixedThreadPool(10);
 
-    public static void printAllCliques(Integer[][] matrix){
+    public static void printAllCliques(int[][] matrix){
         HashSet<Collection<Index>> cliques = getAllCliques(matrix);
         cliques.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(clique -> System.out.println(clique));
     }
-    public static HashSet<Collection<Index>> getAllCliques(Integer[][] matrix){
+    public static HashSet<Collection<Index>> getAllCliques(int[][] matrix){
         return getAllCliques(matrix, 0);
     }
-    public static HashSet<Collection<Index>> getAllCliques(Integer[][] matrix,int minimumCliqueSize){
+    public static HashSet<Collection<Index>> getAllCliques(int[][] matrix,int minimumCliqueSize){
         HashSet<Collection<Index>> cliques = new HashSet<>();
-        Integer[][] dupMatrix = matrix.clone();
+        int[][] dupMatrix = matrix.clone();
          Collection<Index> cliqueByIndex;
         for (int i = 0; i < dupMatrix.length; i ++) {
             for (int j = 0; j < dupMatrix[i].length; j++) {
@@ -32,7 +32,7 @@ public class CliqueFinder {
 
         return cliques;
     }
-    public static Collection<Index> findCliqueByIndex(Integer[][] matrix, Index index, Collection<Index> clique){
+    public static Collection<Index> findCliqueByIndex(int[][] matrix, Index index, Collection<Index> clique){
         if(matrix[index.getRow()][index.getColumn()] != 1)return clique;
         clique.add(index);
         matrix[index.getRow()][index.getColumn()] = (CELLSTATUS.VISITED.getStatus());
@@ -42,7 +42,7 @@ public class CliqueFinder {
         indexNeighbors.forEach(neighbor -> neighbors.push(neighbor));
         while (neighbors.empty() == false){
             Index newIndex = neighbors.pop();
-            Integer[][] newThreadClonedMat = matrix;
+            int[][] newThreadClonedMat = matrix;
             Collection<Index> newThreadPaths = clique ;
             CompletableFuture<Collection<Index>> completableFuture = CompletableFuture.runAsync(()->{})
                     .thenApplyAsync(result -> {
@@ -60,7 +60,7 @@ public class CliqueFinder {
     }
 
     public static void main(String[] args){
-        Integer[][] mat = { {1,1,1,1,1},
+        int[][] mat = { {1,1,1,1,1},
                             {0,0,0,0,0},
                             {1,1,1,1,1}
                             ,{1,1,1,1,1},
