@@ -39,6 +39,8 @@ public class MatrixIHandler implements IHandler {
                     src = (Index) objectInputStream.readObject();
                     dst = (Index) objectInputStream.readObject();
                     if (matrix!=null && src!=null && dst!=null){
+//                        matrix[src.getRow()][src.getColumn()] = 1;
+//                        matrix[dst.getRow()][dst.getColumn()] = 1;
                         MatrixUtils.printMat(matrix);
                         System.out.println("---------");
                         printAllPaths(src,dst,matrix);
