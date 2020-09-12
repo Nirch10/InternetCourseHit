@@ -23,9 +23,7 @@ public class PathFinder {
 
     public static void printAllPathsAscending(Index src, Index dst, Integer[][] matrix){
         LinkedHashSet<Collection<Index>> paths = new LinkedHashSet<>();
-        //executor =  Executors.newFixedThreadPool(10);
         paths = Part2.Ex3.PathFinder.dfs(src,dst,matrix,paths,new LinkedList<>());
-        //executor.shutdown();
         paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
     }
 
@@ -38,7 +36,6 @@ public class PathFinder {
 
         if(src.equals(dst)){
             paths.add(parentPath);
-            //System.out.println(parentPath.toString());
             return paths;
         }
 
@@ -63,13 +60,7 @@ public class PathFinder {
                 }
                 return newThreadPaths;
             }, executor).get();
-           // executor.shutdown();
-//            try {
-//                //executor.execute(() -> {System.out.println( "exec : " + Thread.currentThread().getName() + " : "+ Thread.currentThread().getId());});
-//                paths = completableFuture.get(60,TimeUnit.SECONDS);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+
             newParentPath = new LinkedList<>(parentPath);
             clonedMat = mat.clone();
             mat[newSrc.getRow()][newSrc.getColumn()] = unmarked_cell;

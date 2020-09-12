@@ -25,7 +25,7 @@ public class CliqueFinder {
         for (int i = 0; i < dupMatrix.length; i ++) {
             for (int j = 0; j < dupMatrix[i].length; j++) {
                 cliqueByIndex= findCliqueByIndex(dupMatrix, new Index(i, j), new LinkedList<>());
-                if(cliqueByIndex.size() != minimumCliqueSize)
+                if(cliqueByIndex.size() > minimumCliqueSize)
                     cliques.add(cliqueByIndex);
             }
         }

@@ -20,7 +20,7 @@ public class Client {
                 OutputStream outputStream = socket.getOutputStream();
                 ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
                 ObjectInputStream fromServer = new ObjectInputStream(inputStream);
-/*
+
                 // sending commands for task #1
                 System.out.println("Starting Task #1");
                 System.out.println("****************");
@@ -30,6 +30,7 @@ public class Client {
                 System.out.println("check for result at server side");
                 System.out.println("Please press enter to continue to next task");
                 scn.nextLine();
+
                 // sending commands for task #2
                 System.out.println("Starting Task #2");
                 System.out.println("****************");
@@ -43,33 +44,29 @@ public class Client {
                 System.out.println("check for result at server side");
                 System.out.println("Please press enter to continue to next task");
                 scn.nextLine();
-*/
+
                 // sending commands for task #3
                 System.out.println("Starting Task #3");
                 System.out.println("****************");
                 matToPreform = MatrixUtils.addContentToMat(5, 5);
                 sourceIndex = MatrixUtils.getIndex("source", matToPreform);
                 destinationIndex = MatrixUtils.getIndex("destination", matToPreform);
-                try {
-                        toServer.writeObject("Task3");
-                        toServer.writeObject(matToPreform);
-                        toServer.writeObject(sourceIndex);
-                        toServer.writeObject(destinationIndex);
-                } catch (Exception ex) {
-                        System.out.println("problem");
-                }
+                toServer.writeObject("Task3");
+                toServer.writeObject(matToPreform);
+                toServer.writeObject(sourceIndex);
+                toServer.writeObject(destinationIndex);
                 System.out.println("check for result at server side");
                 System.out.println("Please press enter to continue to next task");
                 scn.nextLine();
-/*
+
                 // sending commands for task #4
                 System.out.println("Starting Task #4");
                 System.out.println("****************");
-                matToPreform = MatrixUtils.InitMatrix(dimensionLimit);
+                matToPreform = MatrixUtils.CreateMatrixForSubMarine(25,25,15);
                 toServer.writeObject("Task4");
                 toServer.writeObject(matToPreform);
                 System.out.println("check for result at server side");
-*/
+
 
 
                 System.out.println("Please press enter to end server-client connection");

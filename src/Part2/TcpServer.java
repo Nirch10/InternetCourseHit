@@ -34,13 +34,13 @@ public class TcpServer {
                 while (!stopServer) {
                     try {
                         Socket request = server.accept();
-                        System.out.println("server::client!!!!");
+                        System.out.println("Got client");
                         Runnable runnable = () -> {
                             try {
-                                System.out.println("server::handle!!!!");
+                                System.out.println("Start handaling client requests...");
                                 requestConcreteIHandler.handle(request.getInputStream(),
                                         request.getOutputStream());
-                                System.out.println("server::Close all streams!!!!");
+                                System.out.println("Client diconnected");
                                 // Close all streams
                                 request.getInputStream().close();
                                 request.getOutputStream().close();
@@ -73,6 +73,7 @@ public class TcpServer {
 
     public static void main(String[] args) {
         TcpServer tcpServer =new TcpServer(8010);
+        System.out.println("TCP Server listening on port 8010, waiting for clients...");
         tcpServer.run(new MatrixIHandler());
     }
 }

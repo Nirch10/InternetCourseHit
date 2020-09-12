@@ -1,11 +1,10 @@
 package Part2;
 
 import Part2.Ex1.CliqueFinder;
-import Part2.Ex2.PathFinder;
+import Part2.Ex4.Marines;
 import Part2.Utils.MatrixUtils;
 
 import java.io.*;
-import java.util.*;
 
 public class MatrixIHandler implements IHandler {
 
@@ -45,11 +44,7 @@ public class MatrixIHandler implements IHandler {
                     Index dst = (Index) objectInputStream.readObject();
                     if (primitiveMatrix!=null && src!=null && dst!=null){
                         MatrixUtils.printMat(primitiveMatrix);
-                        PathFinder.printAllPathsAscending(src,dst,primitiveMatrix);
-                    }
-                    else
-                    {
-                        System.out.println("from else stat");
+                        Part2.Ex2.PathFinder.printAllPathsAscending(src,dst,primitiveMatrix);
                     }
                     break;
                 }
@@ -57,40 +52,23 @@ public class MatrixIHandler implements IHandler {
                     Integer[][] primitiveMatrix = (Integer[][]) objectInputStream.readObject();
                     MatrixUtils.printMat(primitiveMatrix);
                     Index src = (Index) objectInputStream.readObject();
-                    System.out.println(src.toString());
                     Index dst = (Index) objectInputStream.readObject();
-                    System.out.println(dst.toString());
                     if (primitiveMatrix!=null && src!=null && dst!=null) {
-                        System.out.println("starting taske3");
-                        Part2.Ex3.PathFinder.printAllPathsAscending(src, dst, primitiveMatrix);
-                        System.out.println("after taske3");
+                        Part2.Ex3.PathFinder.printAllShortestPaths(src, dst, primitiveMatrix);
                     }}
 
                 break;
                 case "Task4": {
                     Integer[][] primitiveMatrix = (Integer[][])  objectInputStream.readObject();
                     if (primitiveMatrix != null) {
-                        Integer[][] tempMatrix = primitiveMatrix.clone();
-
-                        //List<List<Part2.Ex4.Index>> result = SubMarine.searchForSubMarines(primitiveMatrix, primitiveMatrix.length, primitiveMatrix[0].length);
-                        /*
-                         *   printing the matrix
-                         */
-//                        MatrixUtils.printMat(MatrixUtils.restoreToBinaryMatrix(primitiveMatrix));
-
-                        /*
-                        //can print all indexes represnt the subs.
-                        for (List<Part2.Ex4.Index> li : result) {
-                            for (Part2.Ex4.Index item : li) {
-                                System.out.print(item.toString() + ",");
-                            }
-                            System.out.println();
-                        }*/
-//                        System.out.println("there are " + result.size() + " submarines ");
-
+                        Marines.printAllSubMarines(primitiveMatrix);
+                        primitiveMatrix = MatrixUtils.restoreToBinaryMatrix((primitiveMatrix));
+                        MatrixUtils.printMat(primitiveMatrix);
                     }
                     break;
                 }
+
+
 
             }
         }

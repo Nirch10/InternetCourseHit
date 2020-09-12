@@ -5,6 +5,7 @@ import Part2.Utils.MatrixUtils;
 
 import java.util.*;
 
+import static Part2.Utils.MatrixUtils.getIndex;
 import static Part2.Utils.MatrixUtils.getReachables;
 
 
@@ -13,7 +14,7 @@ public class PathFinder {
      private static final int marked_cell = 2;
      private static final int unmarked_cell = 1;
 
-    public static void printAllPathsAscending(Index src, Index dst, Integer[][] matrix){
+    public static void printAllShortestPaths(Index src, Index dst, Integer[][] matrix){
         LinkedHashSet<Collection<Index>> paths = new LinkedHashSet<>();
         paths = dfs(src, dst, matrix, paths,new LinkedList<>());
 
@@ -64,10 +65,14 @@ public class PathFinder {
                             {0,1,1,0,1},
                             {1,0,1,1,1}};
         mat = MatrixUtils.InitMatrix(30);
-        Index src = new Index(0, 0);
-        Index dst = new Index(16, 23);
+
         HashSet<Collection<Index>> paths = new HashSet<>();
-        printAllPathsAscending(src, new Index(2, 4), mat);
+
+        MatrixUtils.printMat(mat);
+        Index src = getIndex("Source",mat);
+        Index dst = getIndex("Destination",mat);
+        printAllShortestPaths(src, dst, mat);
+
     }
 
 }

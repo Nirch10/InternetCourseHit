@@ -3,16 +3,12 @@ package Part2.Tests;
 import Part2.Ex3.PathFinder;
 import Part2.Index;
 import Part2.Utils.MatrixUtils;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Scanner;
 
 public class Part2Tests {
     static Integer[][] matrix;
@@ -33,7 +29,7 @@ public class Part2Tests {
                 matrix[0][0] = 1;
                 matrix[i - 1][i - 1] = 1;
                 MatrixUtils.printMat(matrix);
-                PathFinder.printAllPathsAscending(new Index(0, 0), new Index(i - 1, i - 1), matrix);
+                PathFinder.printAllShortestPaths(new Index(0, 0), new Index(i - 1, i - 1), matrix);
 
                 System.out.println("number" + i + "---------------");
             }
@@ -46,7 +42,7 @@ public class Part2Tests {
             for (int i = 4; i > 0; i--) {
                 matrix = new Integer[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
                 MatrixUtils.printMat(matrix);
-                PathFinder.printAllPathsAscending(new Index(0, 0), new Index(1,1), matrix);
+                PathFinder.printAllShortestPaths(new Index(0, 0), new Index(1,1), matrix);
 
                 System.out.println("number" + i + "---------------");
             }
