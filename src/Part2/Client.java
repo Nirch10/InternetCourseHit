@@ -35,6 +35,7 @@ public class Client {
                 System.out.println("Starting Task #2");
                 System.out.println("****************");
                 matToPreform = MatrixUtils.InitMatrix(dimensionLimit);
+                MatrixUtils.printMat(matToPreform);
                 sourceIndex = MatrixUtils.getIndex("source", matToPreform);
                 destinationIndex = MatrixUtils.getIndex("destination",matToPreform);
                 toServer.writeObject("Task2");
@@ -48,7 +49,8 @@ public class Client {
                 // sending commands for task #3
                 System.out.println("Starting Task #3");
                 System.out.println("****************");
-                matToPreform = MatrixUtils.addContentToMat(5, 5);
+                matToPreform = MatrixUtils.InitMatrix(dimensionLimit);
+                MatrixUtils.printMat(matToPreform);
                 sourceIndex = MatrixUtils.getIndex("source", matToPreform);
                 destinationIndex = MatrixUtils.getIndex("destination", matToPreform);
                 toServer.writeObject("Task3");

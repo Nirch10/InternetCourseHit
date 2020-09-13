@@ -3,7 +3,7 @@ package Part1;
 import java.util.concurrent.*;
 import java.util.function.Function;
 
-public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper<?>> {
+public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper<? extends V>> {
     protected TaskType taskType;
     protected RunnableFuture<V> runnableFuture;
 
@@ -15,6 +15,9 @@ public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper
     public TaskWrapper(Callable<V> callable, TaskType taskType){
         this.taskType = taskType;
         this.runnableFuture = new FutureTask<>(callable);
+    }
+
+    public TaskWrapper() {
     }
 
     @Override
@@ -47,7 +50,7 @@ public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper
     }
 
     @Override
-    public int compareTo(TaskWrapper taskWrapper) {
+    public int compareTo(TaskWrapper<? extends V> taskWrapper) {
         return taskWrapper.taskType.getPriority().compareTo(taskType.getPriority());
     }
 
@@ -55,9 +58,16 @@ public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper
     public String toString(){
         return taskType.toString();
     }
-    // Google :: prinston find all paths from origin to dest
 
-    //public <V> Future<V> apply(final Runnable runnable,final V v, BiFunction<Runnable,V,RunnableFuture<V>> runnableTFunction) throws InterruptedException
 
-    //public<V> Future<V> apply(final Callable<V> callable,Function<Callable<V>,RunnableFuture<V>> runnableTFunction) throws InterruptedException
+    public static void main(String[] args) {
+        TaskWrapper<String> ts = new TaskWrapper<String>();
+        TaskWrapper<Number> ts1 = new TaskWrapper<Number>();
+        TaskWrapper<Integer> ts2 = new TaskWrapper<Integer>();
+        //Integer -> Number
+        int comp = ts1.compareTo(ts2);
+        //int comp1 = ts1.compareTo(ts);
+    }
 }
+
+

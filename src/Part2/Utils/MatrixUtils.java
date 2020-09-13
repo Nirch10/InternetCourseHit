@@ -86,8 +86,14 @@ public class MatrixUtils {
         return returnMat;
     }
     public static Index getIndex(String indexSTR, int[][] matrix) {
-        int x = MatrixUtils.getNumberInLimits(matrix.length,"x cord for "+ indexSTR + " index: ");
-        int y = MatrixUtils.getNumberInLimits(matrix[0].length,"y cord for "+ indexSTR + " index: ");
+        int y = MatrixUtils.getNumberInLimits(matrix.length,"(Row)y cord for "+ indexSTR + " index: ");
+        int x = MatrixUtils.getNumberInLimits(matrix[0].length,"(Col)x cord for "+ indexSTR + " index: ");
+        while  (matrix[y][x] != 1)
+        {
+            System.out.println("The index doesnt have the value of 1. Please choose again :");
+            y = MatrixUtils.getNumberInLimits(matrix.length,"(Row)y cord for "+ indexSTR + " index: ");
+            x = MatrixUtils.getNumberInLimits(matrix[0].length,"(Col)x cord for "+ indexSTR + " index: ");
+        }
         return new Index(y,x);
     }
     public static int[][] InitMatrix(int limit) {

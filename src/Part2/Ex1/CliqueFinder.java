@@ -1,6 +1,6 @@
 package Part2.Ex1;
 
-import Part2.CELLSTATUS;
+import Part2.eCellStatus;
 import Part2.Index;
 import java.util.*;
 import java.util.concurrent.*;
@@ -8,8 +8,6 @@ import java.util.concurrent.*;
 import static Part2.Utils.MatrixUtils.getReachables;
 
 public class CliqueFinder {
-
-    private static ExecutorService executor =  Executors.newFixedThreadPool(10);
 
     public static void printAllCliques(int[][] matrix){
         HashSet<Collection<Index>> cliques = getAllCliques(matrix);
@@ -21,7 +19,7 @@ public class CliqueFinder {
     public static HashSet<Collection<Index>> getAllCliques(int[][] matrix,int minimumCliqueSize){
         HashSet<Collection<Index>> cliques = new HashSet<>();
         int[][] dupMatrix = matrix.clone();
-         Collection<Index> cliqueByIndex;
+        Collection<Index> cliqueByIndex;
         for (int i = 0; i < dupMatrix.length; i ++) {
             for (int j = 0; j < dupMatrix[i].length; j++) {
                 cliqueByIndex= findCliqueByIndex(dupMatrix, new Index(i, j), new LinkedList<>());
@@ -29,18 +27,18 @@ public class CliqueFinder {
                     cliques.add(cliqueByIndex);
             }
         }
-
         return cliques;
     }
-    public static Collection<Index> findCliqueByIndex(int[][] matrix, Index index, Collection<Index> clique){
+
+    private static Collection<Index> findCliqueByIndex(int[][] matrix, Index index, Collection<Index> clique){
         if(matrix[index.getRow()][index.getColumn()] != 1)return clique;
         clique.add(index);
-        matrix[index.getRow()][index.getColumn()] = (CELLSTATUS.VISITED.getStatus());
+        matrix[index.getRow()][index.getColumn()] = (eCellStatus.VISITED.getStatus());
         Collection<Index> indexNeighbors = getReachables(matrix, index);
         if (indexNeighbors.size() == 0) return clique;
         Stack<Index> neighbors = new Stack<>();
-        indexNeighbors.forEach(neighbor -> neighbors.push(neighbor));
-        while (neighbors.empty() == false){
+        indexNeighbors.forEach(neighbors::push);
+        while (!neighbors.empty()){
             Index newIndex = neighbors.pop();
             int[][] newThreadClonedMat = matrix;
             Collection<Index> newThreadPaths = clique ;

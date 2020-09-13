@@ -9,6 +9,7 @@ import org.junit.Test;
 
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class Part2Tests {
     static int[][] matrix;
@@ -50,7 +51,7 @@ public class Part2Tests {
     }
 
     @Test
-    public void testEx2SpecMatrix(){
+    public void testEx2SpecMatrix() throws ExecutionException, InterruptedException {
       //  for(int j = 0;j < 3;j++) {
             for (int i = 4; i > 0; i--) {
                 matrix = new int[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
@@ -63,7 +64,7 @@ public class Part2Tests {
     }
 
     @Test
-    public void testEx2(){
+    public void testEx2() throws ExecutionException, InterruptedException {
         //for(int j = 0;j < 5;j++) {
             for (int i = 4; i > 0; i--) {
                 matrix = MatrixUtils.addContentToMat(50,50);
@@ -79,7 +80,7 @@ public class Part2Tests {
 
 
     @Test
-    public void testEx4(){
+    public void testEx4() throws ExecutionException, InterruptedException {
         //for(int j = 0;j < 5;j++) {
             for (int i = 4; i > 0; i--) {
                 matrix = MatrixUtils.addContentToMat(50,50);

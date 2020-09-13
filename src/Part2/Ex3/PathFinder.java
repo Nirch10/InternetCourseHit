@@ -2,6 +2,7 @@ package Part2.Ex3;
 
 import Part2.Index;
 import Part2.Utils.MatrixUtils;
+import Part2.eCellStatus;
 
 import java.util.*;
 
@@ -11,8 +12,6 @@ import static Part2.Utils.MatrixUtils.getReachables;
 
 public class PathFinder {
 
-     private static final int marked_cell = 2;
-     private static final int unmarked_cell = 1;
 
     public static void printAllShortestPaths(Index src, Index dst, int[][] matrix){
         LinkedHashSet<Collection<Index>> paths = new LinkedHashSet<>();
@@ -31,13 +30,13 @@ public class PathFinder {
         }
     }
 
-    public static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, int[][] mat
+    private static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, int[][] mat
             , LinkedHashSet<Collection<Index>> paths,
                                                        Collection<Index> parentPath) {
         parentPath.add(src);
         Collection<Index> newParentPath = new LinkedList<>(parentPath);
         int[][] clonedMat =  mat.clone();
-        clonedMat[src.getRow()][src.getColumn()] = marked_cell;
+        clonedMat[src.getRow()][src.getColumn()] = eCellStatus.VISITED.getStatus();
 
         if(src.equals(dst)){
             paths.add(parentPath);
@@ -47,13 +46,13 @@ public class PathFinder {
         Collection<Index> srcNeighbors = getReachables(mat, src);
         if (srcNeighbors.size() == 0) return paths;
         Stack<Index> neighbors = new Stack<>();
-        srcNeighbors.forEach(neighbor -> neighbors.push(neighbor));
-        while (neighbors.empty() == false){
+        srcNeighbors.forEach(neighbors::push);
+        while (!neighbors.empty()){
             Index newSrc = neighbors.pop();
             paths = dfs(newSrc, dst,clonedMat,paths, newParentPath);
             newParentPath = new LinkedList<>(parentPath);
             clonedMat = mat.clone();
-            mat[newSrc.getRow()][newSrc.getColumn()] = unmarked_cell;
+            mat[newSrc.getRow()][newSrc.getColumn()] = eCellStatus.EDGE.getStatus();
         }
         return paths;
     }

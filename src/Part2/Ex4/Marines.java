@@ -16,7 +16,7 @@ public class Marines {
 
     private static Boolean areCliquesSquared(HashSet<Collection<Index>>  cliques){
         for (Collection clique : cliques) {
-            if(isCliqueSquared(clique) == false)
+            if(!isCliqueSquared(clique))
                 return false;
         }
         return true;
@@ -33,7 +33,7 @@ public class Marines {
         int maxCol = intSummaryStatistics.getMax();
         for (int i = minRow; i<= maxRow;i++){
             for(int j = minCol; j <= maxCol; j++){
-                if(clique.contains(new Index(i,j)) == false)
+                if(!clique.contains(new Index(i, j)))
                     return false;
             }
         }
@@ -49,7 +49,6 @@ public class Marines {
                 {1,1,0,0,0},
                 {0,0,0,0,1},
                 {0,0,0,0,0}};
-        HashSet<Collection<Index>> paths = new HashSet<>();
         printAllSubMarines(mat);
     }
 
