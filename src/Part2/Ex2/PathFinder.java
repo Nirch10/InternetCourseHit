@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
 import static Part2.Utils.MatrixUtils.getReachables;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
-
 public class PathFinder {
 
-     private static ExecutorService executor;
+    private static ExecutorService executor;
 
     public static void printAllPathsAscending(Index src, Index dst, int[][] matrix) throws ExecutionException, InterruptedException {
         LinkedHashSet<Collection<Index>> paths = new LinkedHashSet<>();
         paths = Part2.Ex2.PathFinder.dfs(src,dst,matrix,paths,new LinkedList<>());
+        // prints all the paths sorted from the shortest to longest
         paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
     }
 
@@ -29,31 +29,28 @@ public class PathFinder {
         parentPath.add(src);
         Collection<Index> newParentPath = new LinkedList<>(parentPath);
         int[][] clonedMat = mat.clone();
+        // mark the source index as visited
         clonedMat[src.getRow()][src.getColumn()] = eCellStatus.VISITED.getStatus();
-
+        // if source is the destination index - we reach to proper path.
         if(src.equals(dst)){
             paths.add(parentPath);
             return paths;
         }
-
         Collection<Index> srcNeighbors = getReachables(mat, src);
         if (srcNeighbors.size() == 0) return paths;
+        // push all the neighbors (if there are) to stack
         Stack<Index> neighbors = new Stack<>();
         srcNeighbors.forEach(neighbors::push);
-
-
+        // until the stack is empty, pop one item, run Dfs where the item is the source index
         while (!neighbors.empty()){
             Index newSrc = neighbors.pop();
             int[][] newThreadClonedMat = clonedMat;
             LinkedHashSet<Collection<Index>> newThreadPaths = paths;
             Collection<Index> newThreadParentPath = newParentPath;
             executor = Executors.newFixedThreadPool(10);
-
-           // CompletableFuture<LinkedHashSet<Collection<Index>>> completableFuture = new CompletableFuture<>();
-           // LinkedHashSet<Collection<Index>> finalPaths = paths;
+            // start a new thread with new source
             paths = supplyAsync(() -> {
                 try {
-                   // System.out.println(Thread.currentThread().getName() + " : " + Thread.currentThread().getId());
                     return dfs(newSrc, dst, newThreadClonedMat, newThreadPaths, newThreadParentPath);
                 } catch (Exception e) {
                 }

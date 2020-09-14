@@ -17,9 +17,6 @@ public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper
         this.runnableFuture = new FutureTask<>(callable);
     }
 
-    public TaskWrapper() {
-    }
-
     @Override
     public void run() {
         if(runnableFuture != null)
@@ -60,14 +57,6 @@ public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper
     }
 
 
-    public static void main(String[] args) {
-        TaskWrapper<String> ts = new TaskWrapper<String>();
-        TaskWrapper<Number> ts1 = new TaskWrapper<Number>();
-        TaskWrapper<Integer> ts2 = new TaskWrapper<Integer>();
-        //Integer -> Number
-        int comp = ts1.compareTo(ts2);
-        //int comp1 = ts1.compareTo(ts);
-    }
 }
 
 
