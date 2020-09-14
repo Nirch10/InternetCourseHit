@@ -7,9 +7,9 @@ public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper
     protected TaskType taskType;
     protected RunnableFuture<V> runnableFuture;
 
-    public TaskWrapper(Runnable runnable, TaskType taskType){
+    public TaskWrapper(Runnable runnable, TaskType taskType, V result){
         this.taskType = taskType;
-        this.runnableFuture = (RunnableFuture<V>) runnable;
+        this.runnableFuture = (new FutureTask<>(runnable, result)) ;
     }
 
     public TaskWrapper(Callable<V> callable, TaskType taskType){

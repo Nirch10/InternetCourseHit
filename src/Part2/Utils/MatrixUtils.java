@@ -197,7 +197,7 @@ public class MatrixUtils {
     }
 
     public static void main(String[] args) {
-        printMat(CreateMatrixForSubMarine(30,30,30));
+        printMat(CreateMatrixForSubMarine(5,5,9));
     }
 
 

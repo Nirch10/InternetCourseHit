@@ -6,49 +6,37 @@ import java.util.*;
 
 public class Marines {
 
-    public static void printAllSubMarines(int[][] matrix){
-        HashSet<Collection<Index>> cliques = CliqueFinder.getAllCliques(matrix,1);
-        if(areCliquesSquared(cliques))
-            System.out.println("There are " + cliques.size() + " sub-Marines");
-        else
-            System.out.println("Invalid matrix");
-    }
-
-    private static Boolean areCliquesSquared(HashSet<Collection<Index>>  cliques){
-        for (Collection clique : cliques) {
-            if(!isCliqueSquared(clique))
-                return false;
+    public static void printAllSubMarines(int[][] matrix) {
+        int goodSubs = 0;
+        HashSet<Collection<Index>> cliques = CliqueFinder.getAllCliques(matrix, 1);
+        for (Collection<Index> clique : cliques) {
+            goodSubs += isCliqueIsSubCTR(clique);
         }
-        return true;
+        System.out.println("Number of subs on grid is : " + goodSubs);
     }
 
-    private static boolean isCliqueSquared(Collection<Index> clique) {
-        if(clique.size()<=1)
-            return false;
+    private static int isCliqueIsSubCTR(Collection<Index> clique) {
         IntSummaryStatistics intSummaryStatistics = clique.stream().map(Index::getRow).mapToInt(Integer::intValue).summaryStatistics();
         int minRow = intSummaryStatistics.getMin();
         int maxRow = intSummaryStatistics.getMax();
         intSummaryStatistics = clique.stream().map(Index::getColumn).mapToInt(Integer::intValue).summaryStatistics();
         int minCol = intSummaryStatistics.getMin();
         int maxCol = intSummaryStatistics.getMax();
-        for (int i = minRow; i<= maxRow;i++){
-            for(int j = minCol; j <= maxCol; j++){
-                if(!clique.contains(new Index(i, j)))
-                    return false;
+        for (int i = minRow; i <= maxRow; i++) {
+            for (int j = minCol; j <= maxCol; j++) {
+                if (!clique.contains(new Index(i, j))) {
+                    return 0;
+                }
             }
         }
-        return true;
+        return 1;
     }
 
-
     public static void main(String[] args){
-        int[][] mat = { {1,1,1,1,1},
-                {0,0,0,0,0},
-                {1,1,0,1,1}
-                ,{1,1,0,1,1},
-                {1,1,0,0,0},
-                {0,0,0,0,1},
-                {0,0,0,0,0}};
+        int[][] mat = { {1,1,0,1,1},
+                        {0,1,0,1,1},
+                        {1,1,0,1,1}
+                        };
         printAllSubMarines(mat);
     }
 
