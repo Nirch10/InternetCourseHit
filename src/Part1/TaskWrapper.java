@@ -1,7 +1,6 @@
 package Part1;
 
 import java.util.concurrent.*;
-import java.util.function.Function;
 
 public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper<? extends V>> {
     protected TaskType taskType;

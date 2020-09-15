@@ -14,7 +14,7 @@ import static Part2.Utils.PrintUtils.*;
 public class Part2Tests {
     static Integer[][] matrix;
     @BeforeClass
-    public static void testSetup() throws IOException {
+    public static void testSetup() {
 
     }
     @AfterClass
@@ -23,8 +23,22 @@ public class Part2Tests {
     }
 
     @Test
+    public void testEx1(){
+        for(int j = 0;j < 5;j++) {
+            for (int i = 4; i > 0; i--) {
+                matrix = MatrixUtils.fillMatrix(50,50);
+                matrix[0][0] = 1;
+                matrix[i*10 - 1][i*10 - 1] = 1;
+                MatrixUtils.printMatrix(matrix);
+                printAllCliques( matrix);
+                System.out.println("number" + i + "---------------");
+            }
+        }
+    }
+
+    @Test
     public void testEx3(){
-       // for(int j = 0;j < 5;j++) {
+        for(int j = 0;j < 5;j++) {
             for (int i = 6; i > 0; i--) {
                 matrix = MatrixUtils.fillMatrix(6,6);
                 matrix[0][0] = 1;
@@ -34,38 +48,34 @@ public class Part2Tests {
 
                 System.out.println("number" + i + "---------------");
             }
-       // }
+        }
     }
 
     @Test
     public void testEx3SpecMatrix(){
-        for(int j = 0;j < 3;j++) {
-            for (int i = 4; i > 0; i--) {
-                matrix = new Integer[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
-                MatrixUtils.printMatrix(matrix);
-                printShortestPaths(new Index(0, 0), new Index(1,1), matrix);
+        for (int i = 4; i > 0; i--) {
+            matrix = new Integer[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
+            MatrixUtils.printMatrix(matrix);
+            printShortestPaths(new Index(0, 0), new Index(1,1), matrix);
 
-                System.out.println("number" + i + "---------------");
-            }
+            System.out.println("number" + i + "---------------");
         }
     }
 
     @Test
     public void testEx2SpecMatrix(){
-      //  for(int j = 0;j < 3;j++) {
-            for (int i = 4; i > 0; i--) {
-                matrix = new Integer[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
-                MatrixUtils.printMatrix(matrix);
-                printAllPaths(new Index(0, 0), new Index(1, 1), matrix);
+        for (int i = 4; i > 0; i--) {
+            matrix = new Integer[][]{{1, 1, 0, 0, 1},{1, 1, 1 ,0 ,0},{0 ,1, 1 ,1, 0 },{1, 1, 0, 0 ,1},{0 ,1, 0, 0, 1}};
+            MatrixUtils.printMatrix(matrix);
+            printAllPaths(new Index(0, 0), new Index(1, 1), matrix);
+            System.out.println("number" + i + "---------------");
+        }
 
-                System.out.println("number" + i + "---------------");
-            }
-        //}
     }
 
     @Test
     public void testEx2(){
-        //for(int j = 0;j < 5;j++) {
+        for(int j = 0;j < 5;j++) {
             for (int i = 4; i > 0; i--) {
                 matrix = MatrixUtils.fillMatrix(50,50);
                 matrix[0][0] = 1;
@@ -75,13 +85,12 @@ public class Part2Tests {
 
                 System.out.println("number" + i + "---------------");
             }
-       // }
+        }
     }
-
 
     @Test
     public void testEx4(){
-        //for(int j = 0;j < 5;j++) {
+        for(int j = 0;j < 5;j++) {
             for (int i = 6; i > 0; i--) {
                Integer[][] matrix = matrix = new Integer[][]{{0,1,0,1,1,0,1,1,1,1,0,1,0},
                         {0,1,0,1,1,0,1,1,1,1,0,1,0},
@@ -96,7 +105,7 @@ public class Part2Tests {
                 printSubMarinesCounter(matrix);
                 System.out.println("number" + i + "---------------");
             }
-       // }
+       }
     }
 
 
