@@ -12,7 +12,6 @@ public enum TaskType {
 
     public Integer getPriority() {return priority;}
     public void setPriority(int oPriority){priority = oPriority;}
-
     public static TaskType getTask(int priority){
         switch (priority){
             case 1:

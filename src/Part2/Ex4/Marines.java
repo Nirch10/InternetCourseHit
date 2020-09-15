@@ -40,6 +40,7 @@ public class Marines {
         return true;
     }
 
+   /** main runner
     //    public static void main(String[] args){
 //        Integer[][] mat = { {1,1,1,1,1},
 //                {0,0,0,0,0},
@@ -50,6 +51,6 @@ public class Marines {
 //                {0,0,0,0,0}};
 //        HashSet<Collection<Index>> paths = new HashSet<>();
 //        printAllSubMarines(mat);
-//    }
+//    }**/
 
 }

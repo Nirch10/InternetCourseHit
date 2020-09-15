@@ -72,6 +72,11 @@ public class Client {
                 System.out.println("Head to your server for the result");
         }
 
+
+        /**
+         * @param matrix - matrix to add a marine in
+         * @return - updated matrix with the wanted new marine
+         */
         private static Integer[][] addSubMarines(Integer[][] matrix){
                 int startRow = 0,startCol = 0,endRow = 0,endCol = 0;
                 while (startRow != -1 && startCol != -1 && endCol != -1 && endRow != -1){
@@ -93,6 +98,15 @@ public class Client {
                 }
                 return matrix;
         }
+
+        /**
+         * @param startRow - in matrix
+         * @param startCol- in matrix
+         * @param endRow- in matrix
+         * @param endCol- in matrix
+         * @param matrix - matrix to add the marine in
+         * @return - true, if marine added successfully, else false
+         */
         private static boolean tryAddSubmarine(int startRow, int startCol, int endRow, int endCol, Integer[][] matrix) {
                 if(startCol < 0 || startRow < 0 || endCol < 0 || endRow < 0)
                         return false;

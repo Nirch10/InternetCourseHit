@@ -12,14 +12,13 @@ import java.util.concurrent.ForkJoinPool;
 
 import static Part2.Utils.MatrixUtils.getReachables;
 
-
 public class PathFinder {
 
     private static LinkedHashSet<Collection<Index>> paths;
+    /**In case of parallel usage - executor will be used as our threadpool, and run wanted methods on different thread.
     //    private static ExecutorService executor;
-//    private static ForkJoinPool pool = new ForkJoinPool(1);
-//    private  List<CompletableFuture<Collection<Index>>> completableFutureList;
-
+    //    private static ForkJoinPool pool = new ForkJoinPool(1);
+    //    private  List<CompletableFuture<Collection<Index>>> completableFutureList; **/
 
     /**
      * @param src -  Source Index (i,j) for start the DFS search from
@@ -55,9 +54,7 @@ public class PathFinder {
         return paths;
     }
 
-
-
-    /*    parallel dfs - with  completablefuture
+    /**   parallel dfs - with  completablefuture
 //    private static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, Integer[][] mat,
 //                                                        LinkedHashSet<Collection<Index>> paths, Collection<Index> parentPath) throws ExecutionException, InterruptedException {
 //        parentPath.add(src);
@@ -104,11 +101,10 @@ public class PathFinder {
 //            mat[newSrc.getRow()][newSrc.getColumn()] = unmarked_cell;
 //        }
 //        return paths;
-//    } */
+//    } **/
 
-
-
-//    public static void main(String[] args){
+    /** main runner
+     *  public static void main(String[] args){
 //        Integer[][] mat = { {1,1,0,1,0},
 //                            {0,1,1,0,1},
 //                            {1,0,1,1,1}};
@@ -117,6 +113,6 @@ public class PathFinder {
 //        Index dst = new Index(16, 23);
 //        HashSet<Collection<Index>> paths = new HashSet<>();
 //        printShortestPaths(src, new Index(2, 4), mat);
-//    }
+//    } **/
 
 }

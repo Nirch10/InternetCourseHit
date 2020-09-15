@@ -2,9 +2,7 @@ package Part2.Utils;
 
 import Part2.Ex1.CliqueFinder;
 import Part2.Index;
-
 import java.util.*;
-
 import static Part2.Ex1.CliqueFinder.getAllCliques;
 import static Part2.Ex2and3.PathFinder.dfs;
 import static Part2.Ex4.Marines.CountSquaredCliques;
@@ -50,6 +48,4 @@ public class PrintUtils {
         final int countedMarines = CountSquaredCliques(cliques);
         System.out.println("There are " + countedMarines + " valid sub-Marines");
     }
-
-
 }
