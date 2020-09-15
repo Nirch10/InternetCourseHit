@@ -11,6 +11,11 @@ public class CliqueFinder {
 
     private static ExecutorService executor =  Executors.newFixedThreadPool(10);
 
+
+    /**
+     * @param matrix - matrix to search cliques in
+     * @return HashSet of all the cliques found
+     */
     public static HashSet<Collection<Index>> getAllCliques(Integer[][] matrix){ return getAllCliques(matrix, 0); }
     public static HashSet<Collection<Index>> getAllCliques(Integer[][] matrix,int minimumCliqueSize){
         HashSet<Collection<Index>> cliques = new HashSet<>();
@@ -25,6 +30,14 @@ public class CliqueFinder {
         }
         return cliques;
     }
+
+
+    /**
+     * @param matrix - matrix to search clique in
+     * @param index - Index (i,j) in matrix to indicate from what index on the matrix we search clique
+     * @param clique - current clique found (when function called should be new kind of collection)
+     * @return
+     */
     public static Collection<Index> findCliqueByIndex(Integer[][] matrix, Index index, Collection<Index> clique){
         if(matrix[index.getRow()][index.getColumn()] != 1)return clique;
         clique.add(index);

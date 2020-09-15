@@ -29,7 +29,7 @@ public class Client {
         }
         private static void Ex1Runner(ObjectOutputStream toServer) throws IOException {
                 System.out.println("Starting Task #1");
-                clientMatrix = MatrixUtils.InitMatrix(dimensionLimit);
+                clientMatrix = MatrixUtils.initMatrix(dimensionLimit);
                 toServer.writeObject("Task1");
                 toServer.writeObject(clientMatrix);
                 System.out.println("Head to your server for the result");
@@ -37,7 +37,7 @@ public class Client {
         }
         private static void Ex2Runner(ObjectOutputStream toServer) throws IOException {
                 System.out.println("Starting Task #2");
-                clientMatrix = MatrixUtils.InitMatrix(dimensionLimit);
+                clientMatrix = MatrixUtils.initMatrix(dimensionLimit);
                 source = MatrixUtils.getIndex("source", clientMatrix);
                 dest = MatrixUtils.getIndex("destination", clientMatrix);
                 toServer.writeObject("Task2");
@@ -49,7 +49,7 @@ public class Client {
         }
         private static void Ex3Runner(ObjectOutputStream toServer){
                 System.out.println("Starting Task #3");
-                clientMatrix = MatrixUtils.InitMatrix(dimensionLimit);
+                clientMatrix = MatrixUtils.initMatrix(dimensionLimit);
                 source = MatrixUtils.getIndex("source", clientMatrix);
                 dest = MatrixUtils.getIndex("destination", clientMatrix);
                 try {
@@ -65,7 +65,7 @@ public class Client {
         }
         private static void Ex4Runner(ObjectOutputStream toServer) throws IOException {
                 System.out.println("Starting Task #4");
-                clientMatrix = MatrixUtils.InitMatrix(dimensionLimit,0);
+                clientMatrix = MatrixUtils.initMatrix(dimensionLimit,0);
                 clientMatrix = addSubMarines(clientMatrix);
                 toServer.writeObject("Task4");
                 toServer.writeObject(clientMatrix);
@@ -120,25 +120,25 @@ public class Client {
                 while(loopEx == 1) {
                         Ex1Runner(toServer);
                         try{
-                        loopEx =  Integer.parseInt(continueProgram("To run Ex1 again, type 1.\n To Continue type anything else"));}
+                        loopEx =  Integer.parseInt(continueProgram("To run Ex1 again, type 1.\nTo Continue type anything else"));}
                         catch (NumberFormatException ex){loopEx = 0;}
                 }
                 loopEx = 2;
                 while (loopEx == 2) {
                         Ex2Runner(toServer);
-                       try{ loopEx = Integer.parseInt(continueProgram("To run Ex2 again, type 2.\n To Continue type anything else"));}
+                       try{ loopEx = Integer.parseInt(continueProgram("To run Ex2 again, type 2.\nTo Continue type anything else"));}
                catch (NumberFormatException ex){loopEx = 0;}
                 }
                 loopEx = 3;
                 while(loopEx == 3) {
                         Ex3Runner(toServer);
-                        try{loopEx = Integer.parseInt(continueProgram("To run Ex3 again, type 3.\n To Continue type anything else"));}
+                        try{loopEx = Integer.parseInt(continueProgram("To run Ex3 again, type 3.\nTo Continue type anything else"));}
                         catch (NumberFormatException ex){loopEx = 0;}
                 }
                 loopEx = 4;
                 while (loopEx == 4) {
                         Ex4Runner(toServer);
-                        try{loopEx = Integer.parseInt(continueProgram("To run Ex4 again, type 4.\n To Continue type anything else"));}
+                        try{loopEx = Integer.parseInt(continueProgram("To run Ex4 again, type 4.\nTo Continue type anything else"));}
                         catch (NumberFormatException ex){loopEx = 0;}
                 }
                 continueProgram("Type enter to close connection");

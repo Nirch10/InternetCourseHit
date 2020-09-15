@@ -27,7 +27,7 @@ public class MatrixIHandler implements IHandler {
                 case "Task1": {
                     matrix = (Integer[][]) objectInputStream.readObject();
                     if (matrix!=null){
-                        MatrixUtils.printMat(matrix);
+                        MatrixUtils.printMatrix(matrix);
                         System.out.println("---------");
                         printAllCliques(matrix);
                         System.out.println("---------");
@@ -41,7 +41,7 @@ public class MatrixIHandler implements IHandler {
                     if (matrix!=null && src!=null && dst!=null){
 //                        matrix[src.getRow()][src.getColumn()] = 1;
 //                        matrix[dst.getRow()][dst.getColumn()] = 1;
-                        MatrixUtils.printMat(matrix);
+                        MatrixUtils.printMatrix(matrix);
                         System.out.println("---------");
                         printAllPaths(src,dst,matrix);
                         System.out.println("---------");
@@ -53,7 +53,7 @@ public class MatrixIHandler implements IHandler {
                     src = (Index) objectInputStream.readObject();
                     dst = (Index) objectInputStream.readObject();
                     if (matrix!=null && src!=null && dst!=null) {
-                        MatrixUtils.printMat(matrix);
+                        MatrixUtils.printMatrix(matrix);
                         printShortestPaths(src, dst, matrix);
                         System.out.println("---------");
                     }break;}

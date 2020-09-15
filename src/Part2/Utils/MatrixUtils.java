@@ -10,6 +10,12 @@ import java.util.stream.Collectors;
 
 public class MatrixUtils {
 
+
+    /**
+     * @param matrix - matrix to search in
+     * @param index - index (i,j) to find neighbors around.
+     * @return - Collection of indexes which represents neighbors
+     */
     private static Collection<Index> getAdjacentIndices(Integer[][] matrix, final Index index) {
         Collection<Index> list = new ArrayList<>();
         int extracted = -1;
@@ -48,22 +54,36 @@ public class MatrixUtils {
         return list;
     }
 
+    /**
+     * @param matrix - matrix to search in
+     * @param index - index to find value in matrix
+     * @return
+     */
     private static int getValue(Integer[][] matrix, Index index) {
         return matrix[index.getRow()][index.getColumn()];
     }
 
+    /**
+     * @param matrix - matrix graph to search in
+     * @param index - index to which the method will search neighbors who has value of value (default is 1)
+     * @return - Collection of indexes which were valid for the criteria
+     */
     public static Collection<Index> getReachables(Integer[][] matrix, Index index) {
+        return getReachables(matrix, index,1);
+    }
+    public static Collection<Index> getReachables(Integer[][] matrix, Index index, int value) {
         ArrayList<Index> filteredIndices = new ArrayList<>();
         try{
 
-            getAdjacentIndices(matrix, index).stream().filter(i-> getValue(matrix, i)==1)
+            getAdjacentIndices(matrix, index).stream().filter(i-> getValue(matrix, i)==value)
                     .map(neighbor->filteredIndices.add(neighbor)).collect(Collectors.toList());
             return filteredIndices;
         }catch (Exception e) {
             return filteredIndices;
         }
     }
-    public static int getNumberInLimits(int limit, String limitName){
+
+    public static int getIntFromUser(int limit, String limitName){
         Scanner scn = new Scanner((System.in));
         System.out.print("Type " + limitName  );
         int dimensionSize = scn.nextInt();
@@ -75,7 +95,7 @@ public class MatrixUtils {
         return dimensionSize;
     }
 
-    public static Integer[][] addContentToMat(int row, int col) {
+    public static Integer[][] fillMatrix(int row, int col) {
         Integer[][] returnMat = new Integer[row][col];
         Random rnd = new Random();
         for (int i=0;i<row;i++)
@@ -86,7 +106,7 @@ public class MatrixUtils {
         }
         return returnMat;
     }
-    public static Integer[][] addContentToMat(int row, int col,int val) {
+    public static Integer[][] fillMatrix(int row, int col, int val) {
         Integer[][] returnMat = new Integer[row][col];
         for (int i=0;i<row;i++)
             for (int j=0;j<col;j++)
@@ -94,22 +114,21 @@ public class MatrixUtils {
         return returnMat;
     }
     public static Index getIndex(String indexSTR, Integer[][] matrix) {
-        int x = MatrixUtils.getNumberInLimits(matrix.length,"x for"+ indexSTR + " index: ");
-        int y = MatrixUtils.getNumberInLimits(matrix[0].length,"y for"+ indexSTR + " index: ");
+        int x = MatrixUtils.getIntFromUser(matrix.length,"x for"+ indexSTR + " index: ");
+        int y = MatrixUtils.getIntFromUser(matrix[0].length,"y for"+ indexSTR + " index: ");
         return new Index(x,y);
     }
-    public static Integer[][] InitMatrix(int limit) {
-        int row = MatrixUtils.getNumberInLimits(limit,"rows number: ");
-        int col = MatrixUtils.getNumberInLimits(limit,"columns number: ");
-        return MatrixUtils.addContentToMat(row,col);
+    public static Integer[][] initMatrix(int limit) {
+        int row = MatrixUtils.getIntFromUser(limit,"rows number: ");
+        int col = MatrixUtils.getIntFromUser(limit,"columns number: ");
+        return MatrixUtils.fillMatrix(row,col);
     }
-    public static Integer[][] InitMatrix(int limit,int val) {
-        int row = MatrixUtils.getNumberInLimits(limit,"rows number: ");
-        int col = MatrixUtils.getNumberInLimits(limit,"columns number: ");
-        return MatrixUtils.addContentToMat(row,col,val);
+    public static Integer[][] initMatrix(int limit, int val) {
+        int row = MatrixUtils.getIntFromUser(limit,"rows number: ");
+        int col = MatrixUtils.getIntFromUser(limit,"columns number: ");
+        return MatrixUtils.fillMatrix(row,col,val);
     }
-    public static void printMat(Integer[][] matrix)
-    {
+    public static void printMatrix(Integer[][] matrix) {
         for (int i=0; i<matrix.length; i++)
         {
             for (int j=0; j<matrix[0].length; j++)

@@ -7,7 +7,7 @@ import java.util.*;
 
 import static Part2.Ex1.CliqueFinder.getAllCliques;
 import static Part2.Ex2and3.PathFinder.dfs;
-import static Part2.Ex4.Marines.areCliquesSquared;
+import static Part2.Ex4.Marines.CountSquaredCliques;
 
 public class PrintUtils {
 
@@ -22,7 +22,10 @@ public class PrintUtils {
         //executor =  Executors.newFixedThreadPool(10);
         paths = dfs(src,dst,matrix,paths,new LinkedList<>());
         //executor.shutdown();
-        paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
+        if (paths.size() == 0)
+            System.out.println("No such route exists...");
+        else
+            paths.stream().sorted(Comparator.comparingInt(Collection::size)).forEach(System.out::println);
     }
     //Ex 3 printer
     public static void printShortestPaths(Index src, Index dst, Integer[][] matrix){
@@ -42,11 +45,10 @@ public class PrintUtils {
     }
     //Ex 4 printer
     public static void printSubMarinesCounter(Integer[][] matrix){
+        MatrixUtils.printMatrix(matrix);
         HashSet<Collection<Index>> cliques = CliqueFinder.getAllCliques(matrix);
-        if(areCliquesSquared(cliques))
-            System.out.println("There are " + cliques.size() + " sub-Marines");
-        else
-            System.out.println("Invalid matrix");
+        final int countedMarines = CountSquaredCliques(cliques);
+        System.out.println("There are " + countedMarines + " valid sub-Marines");
     }
 
 

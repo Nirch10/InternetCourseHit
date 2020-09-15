@@ -2,6 +2,9 @@ package Part2.Ex2and3;
 
 import Part2.CELLSTATUS;
 import Part2.Index;
+import Part2.Utils.MatrixUtils;
+import sun.misc.Queue;
+
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -17,6 +20,15 @@ public class PathFinder {
 //    private static ForkJoinPool pool = new ForkJoinPool(1);
 //    private  List<CompletableFuture<Collection<Index>>> completableFutureList;
 
+
+    /**
+     * @param src -  Source Index (i,j) for start the DFS search from
+     * @param dst - Destination Index (i,j) for the DFS search to end
+     * @param mat - Matrix graph to search  DFS in
+     * @param paths - existing paths found from src to dst in mat (should be given as new kind of collection at the start)
+     * @param parentPath - current working path found (should be given as new kind of collection at the start)
+     * @return
+     */
     public static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, Integer[][] mat
             , LinkedHashSet<Collection<Index>> paths, Collection<Index> parentPath) {
         parentPath.add(src);
@@ -42,6 +54,8 @@ public class PathFinder {
         }
         return paths;
     }
+
+
 
     /*    parallel dfs - with  completablefuture
 //    private static LinkedHashSet<Collection<Index>> dfs(Index src, Index dst, Integer[][] mat,
