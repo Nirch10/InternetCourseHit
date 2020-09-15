@@ -4,14 +4,24 @@ import Part2.Index;
 import java.util.*;
 
 public class Marines {
-    public static Boolean areCliquesSquared(HashSet<Collection<Index>> cliques){
+
+    /**
+     * @param cliques - cliques to count squared cliques from
+     * @return - number of squared shaped cliques from @param
+     */
+    public static int CountSquaredCliques(HashSet<Collection<Index>> cliques){
+        int marinesCount = 0;
         for (Collection clique : cliques) {
-            if(isCliqueSquared(clique) == false)
-                return false;
+            if(isCliqueSquared(clique) == true)
+                marinesCount ++;
         }
-        return true;
+        return marinesCount;
     }
 
+    /**
+     * @param clique - indexes Collection which represents a clique
+     * @return true if they are connected in a square shape, else returns false.
+     */
     private static boolean isCliqueSquared(Collection<Index> clique) {
         if(clique.size()<=1)
             return false;
@@ -30,8 +40,7 @@ public class Marines {
         return true;
     }
 
-
-//    public static void main(String[] args){
+    //    public static void main(String[] args){
 //        Integer[][] mat = { {1,1,1,1,1},
 //                {0,0,0,0,0},
 //                {1,1,0,1,1}

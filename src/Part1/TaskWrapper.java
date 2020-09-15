@@ -3,13 +3,13 @@ package Part1;
 import java.util.concurrent.*;
 import java.util.function.Function;
 
-public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper<?>> {
+public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper<? extends V>> {
     protected TaskType taskType;
     protected RunnableFuture<V> runnableFuture;
 
-    public TaskWrapper(Runnable runnable, TaskType taskType){
+    public TaskWrapper(Runnable runnable, TaskType taskType, V result){
         this.taskType = taskType;
-        this.runnableFuture = (RunnableFuture<V>) runnable;
+        this.runnableFuture = new FutureTask<>(runnable, result);
     }
 
     public TaskWrapper(Callable<V> callable, TaskType taskType){
@@ -55,9 +55,5 @@ public class TaskWrapper<V> implements RunnableFuture<V>, Comparable<TaskWrapper
     public String toString(){
         return taskType.toString();
     }
-    // Google :: prinston find all paths from origin to dest
 
-    //public <V> Future<V> apply(final Runnable runnable,final V v, BiFunction<Runnable,V,RunnableFuture<V>> runnableTFunction) throws InterruptedException
-
-    //public<V> Future<V> apply(final Callable<V> callable,Function<Callable<V>,RunnableFuture<V>> runnableTFunction) throws InterruptedException
 }
